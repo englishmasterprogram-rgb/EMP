@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متابعة مستوى الطالب - EMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+body { background: linear-gradient(135deg, #e0e5ec, #b8c6db); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+.phone-container { width: 100%; max-width: 400px; background: rgba(255, 255, 255, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.5); border-radius: 35px; padding: 40px 25px; box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1); text-align: center; }
+
+.header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+.back-btn { color: #111; text-decoration: none; font-weight: 700; font-size: 0.9rem; background: rgba(255,255,255,0.6); padding: 6px 14px; border-radius: 12px; border: 1px solid rgba(212,175,55,0.3); }
+.page-title { font-size: 1.3rem; font-weight: 900; color: #111; -webkit-text-stroke: 0.5px #d4af37; }
+
+.search-box { margin-bottom: 25px; text-align: right; }
+.search-box label { display: block; font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; color: #222; }
+.form-control { width: 100%; padding: 14px 16px; background: rgba(255, 255, 255, 0.7); border: 1px solid rgba(212, 175, 55, 0.25); border-radius: 14px; font-size: 1rem; outline: none; text-align: center; font-weight: 700; }
+
+.search-btn { width: 100%; padding: 14px; background: #111; color: #d4af37; border: 1px solid #d4af37; border-radius: 14px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.search-btn:active { transform: scale(0.97); }
+
+/* كارت عرض النتيجة */
+.result-card { display: none; background: rgba(255,255,255,0.8); border: 1.5px solid #d4af37; border-radius: 20px; padding: 20px; margin-top: 25px; text-align: right; animation: fadeIn 0.4s ease; }
+.result-card h3 { font-size: 1.2rem; color: #111; margin-bottom: 10px; border-bottom: 1px solid rgba(0,0,0,0.05); padding-bottom: 8px; }
+.result-field { font-size: 0.95rem; color: #333; margin-bottom: 8px; }
+.level-badge { background: #111; color: #d4af37; padding: 4px 12px; border-radius: 8px; font-weight: 900; display: inline-block; margin-top: 5px; border: 1px solid #d4af37; }
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="phone-container">
+<div class="header-area">
+<a href="index.html" class="back-btn">رجوع</a>
+<h1 class="page-title">متابعة مستوى الطالب</h1>
+</div>
+
+<div class="search-box">
+<label>أدخل رقم حدود الطالب للاستعلام:</label>
+<input type="text" id="searchBorderId" class="form-control" placeholder="مكون من 10 أرقام" maxlength="10">
+</div>
+<button class="search-btn" onclick="searchStudent()">بحث واستعلام</button>
+
+<!-- كارت تظهر فيه النتيجة ديناميكياً -->
+<div class="result-card" id="resultCard">
+<h3 id="resName">اسم الطالب</h3>
+<div class="result-field" id="resSchool">المدرسة: </div>
+<div class="result-field">المستوى الأكاديمي الحالي:</div>
+<div class="level-badge" id="resLevel">ممتاز</div>
+</div>
+</div>
+
+<script>
+function searchStudent() {
+const searchId = document.getElementById('searchBorderId').value.trim();
+const resultCard = document.getElementById('resultCard');
+
+if(searchId.length !== 10) {
+alert('الرجاء إدخال رقم حدود صحيح مكون من 10 أرقام');
+return;
+}
+
+const students = JSON.parse(localStorage.getItem('emp_students')) || [];
+// البحث عن الطالب بواسطة رقم الحدود
+const student = students.find(s => s.borderId === searchId);
+
+if(student) {
+document.getElementById('resName').innerText = student.name + (student.school === 'jil-alibdaa' ? ' (J)' : '');
+document.getElementById('resSchool').innerText = 'المدرسة الحالية: ' + (student.school === 'jil-alibdaa' ? 'مدارس جيل الإبداع والتميز' : 'مدرسة أخرى');
+document.getElementById('resLevel').innerText = student.academicLevel;
+
+resultCard.style.display = 'block';
+} else {
+resultCard.style.display = 'none';
+alert('لم يتم العثور على طالب مسجل برقم الحدود هذا. يرجى التأكد من الرقم أو التسجيل أولاً.');
+}
+}
+</script>
+</body>
+</html>
+
