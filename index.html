@@ -18,11 +18,10 @@ body {
 background: linear-gradient(135deg, #e0e5ec, #b8c6db);
 min-height: 100vh;
 display: flex;
-flex-direction: column; /* للسماح بوضع الرابط المخفي أسفل تماماً */
 justify-content: center;
 align-items: center;
 padding: 20px;
-overflow: hidden;
+overflow-x: hidden;
 position: relative;
 }
 
@@ -34,13 +33,13 @@ backdrop-filter: blur(20px);
 -webkit-backdrop-filter: blur(20px);
 border: 1px solid rgba(255, 255, 255, 0.5);
 border-radius: 35px;
-padding: 50px 25px;
+padding: 45px 25px;
 box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
 text-align: center;
 }
 
 .logo-container {
-margin-bottom: 50px;
+margin-bottom: 35px;
 position: relative;
 animation: floatLogo 4s ease-in-out infinite;
 }
@@ -56,40 +55,34 @@ line-height: 1;
 text-shadow: 0 10px 15px rgba(0, 0, 0, 0.12);
 }
 
-.logo-text::after {
-content: "EMP";
-position: absolute;
-left: 0;
-top: 100%;
-width: 100%;
-transform: scaleY(-1);
-opacity: 0.12;
-filter: blur(2px);
--webkit-text-stroke: 1.5px #d4af37;
-}
-
 .buttons-list {
 display: flex;
 flex-direction: column;
-gap: 20px;
-margin-top: 20px;
+gap: 16px;
 filter: url('#liquid-filter');
 }
 
 .btn {
 display: block;
-padding: 18px 20px;
+padding: 16px 20px;
 background: rgba(255, 255, 255, 0.75);
 border: 1px solid rgba(212, 175, 55, 0.25);
-border-radius: 20px;
+border-radius: 18px;
 color: #1a1a1a;
-font-size: 1.15rem;
+font-size: 1.1rem;
 font-weight: 700;
 text-decoration: none;
-transition: background 0.4s, color 0.4s, border-color 0.4s;
+transition: background 0.2s, color 0.2s, border-color 0.2s;
 position: relative;
 overflow: hidden;
-box-shadow: 0 8px 15px rgba(0, 0, 0, 0.03);
+box-shadow: 0 6px 12px rgba(0, 0, 0, 0.02);
+}
+
+/* تمييز زر الإدارة باللون الأحمر */
+.btn-admin {
+background: rgba(231, 76, 60, 0.15);
+border-color: rgba(231, 76, 60, 0.4);
+color: #c0392b;
 }
 
 .btn::before {
@@ -99,56 +92,85 @@ top: 0;
 left: -100%;
 width: 60%;
 height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
 transform: skewX(-20deg);
-animation: liquidShimmer 7s infinite;
+animation: liquidShimmer 6s infinite;
 }
 
-.buttons-list a:nth-child(2)::before { animation-delay: 1.8s; }
-.buttons-list a:nth-child(3)::before { animation-delay: 3.6s; }
-.buttons-list a:nth-child(4)::before { animation-delay: 5.4s; }
-
-.btn:hover {
+.btn:hover, .btn:active {
 background: #111111;
 color: #d4af37;
 border-color: #d4af37;
 }
 
+.btn-admin:hover, .btn-admin:active {
+background: #c0392b;
+color: #ffffff;
+border-color: #a93226;
+}
+
+/* حركة اهتزاز خفيفة وسريعة جداً */
 .btn.active-shake {
-animation: liquidShake 0.25s cubic-bezier(.36,.07,.19,.97) both;
+animation: lightShake 0.15s linear 2;
 }
 
 .liquid-ripple {
 position: absolute;
 border-radius: 50%;
-background: rgba(214, 175, 55, 0.4);
+background: rgba(214, 175, 55, 0.3);
 transform: scale(0);
-animation: rippleEffect 0.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+animation: rippleEffect 0.4s ease-out forwards;
 pointer-events: none;
 }
 
-/* ----- تصميم زر لوحة التحكم السري والمخفي أسفل الشاشة ----- */
-.secret-admin-link {
-position: absolute;
-bottom: 12px;
-font-size: 0.65rem;
-color: rgba(0, 0, 0, 0.25); /* لون رمادي باهت جداً مدمج مع الخلفية */
-text-decoration: none;
-cursor: pointer;
-font-weight: 500;
-letter-spacing: 0.5px;
-transition: color 0.3s;
+/* ----- نافذة حماية لوحة الإدارة المنبثقة ----- */
+.modal-overlay {
+position: fixed;
+top: 0; left: 0; width: 100%; height: 100%;
+background: rgba(0, 0, 0, 0.5);
+backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+display: flex; justify-content: center; align-items: center;
+z-index: 9999; opacity: 0; pointer-events: none;
+transition: opacity 0.3s ease;
+padding: 20px;
 }
-/* يظهر قليلاً فقط عند تمرير الماوس فوقه (اختياري للكمبيوتر) */
-.secret-admin-link:hover {
-color: rgba(214, 175, 55, 0.6);
-}
+.modal-overlay.show { opacity: 1; pointer-events: auto; }
 
-/* الحركات والانميشن */
-@keyframes rippleEffect { to { transform: scale(4); opacity: 0; } }
-@keyframes liquidShake { 10%, 90% { transform: translate3d(-3px, 0, 0); } 20%, 80% { transform: translate3d(4px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-5px, 0, 0); } 40%, 60% { transform: translate3d(5px, 0, 0); } }
+.modal-box {
+width: 100%; max-width: 340px;
+background: rgba(255, 255, 255, 0.9);
+border: 2px solid #c0392b; border-radius: 25px;
+padding: 30px 20px; text-align: center;
+box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+transform: scale(0.9); transition: transform 0.3s ease;
+}
+.modal-overlay.show .modal-box { transform: scale(1); }
+
+.modal-title { font-size: 1.25rem; font-weight: 900; color: #c0392b; margin-bottom: 12px; }
+.modal-text { font-size: 0.95rem; color: #333; margin-bottom: 20px; font-weight: 700; line-height: 1.5; }
+
+.password-input {
+width: 100%; padding: 12px; border-radius: 12px;
+border: 1px solid #ccc; margin-bottom: 20px;
+text-align: center; font-size: 1rem; font-weight: 700; outline: none;
+display: none; /* مخفي في البداية ويظهر عند ضغط متابعة */
+}
+.password-input:focus { border-color: #c0392b; }
+
+.modal-actions { display: flex; gap: 12px; justify-content: center; }
+.modal-btn {
+flex: 1; padding: 12px; border-radius: 12px; font-size: 0.95rem;
+font-weight: 700; cursor: pointer; border: none; transition: 0.2s;
+}
+.btn-close { background: #e0e5ec; color: #333; }
+.btn-continue { background: #c0392b; color: #fff; }
+.modal-btn:active { transform: scale(0.96); }
+
+/* الأنيميشن الجديد */
+@keyframes rippleEffect { to { transform: scale(3); opacity: 0; } }
+@keyframes lightShake { 0% { transform: translateX(0); } 25% { transform: translateX(-2px); } 75% { transform: translateX(2px); } 100% { transform: translateX(0); } }
 @keyframes liquidShimmer { 0% { left: -100%; } 15% { left: 150%; } 100% { left: 150%; } }
-@keyframes floatLogo { 0% { transform: translateY(0); } 50% { transform: translateY(-8px); } 100% { transform: translateY(0); } }
+@keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 </style>
 </head>
 <body>
@@ -156,7 +178,7 @@ color: rgba(214, 175, 55, 0.6);
 <svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg" version="1.1">
 <defs>
 <filter id="liquid-filter">
-<feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur" />
+<feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
 <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 18 -7" result="goo" />
 <feBlend in="SourceGraphic" in2="goo" />
 </filter>
@@ -177,10 +199,25 @@ color: rgba(214, 175, 55, 0.6);
 <a href="academic-level.html" class="btn">متابعة مستوى الطالب الأكاديمي</a>
 <a href="about.html" class="btn">حول أو نبذة عن المدرسة</a>
 <a href="contact.html" class="btn">تواصل معنا</a>
+<!-- زر الإدارة المضاف باللون الأحمر الرائع -->
+<a href="#" class="btn btn-admin" onclick="openAdminModal(event)">لوحة تحكم الإدارة 🔐</a>
 </nav>
 </div>
 
-<div class="secret-admin-link" onclick="accessAdminPanel()">EMP v2.6 Control</div>
+<!-- النافذة المنبثقة الذكية المخصصة للإدارة -->
+<div class="modal-overlay" id="adminModal">
+<div class="modal-box">
+<h2 class="modal-title" id="mTitle">تنبيه أمني 🔐</h2>
+<p class="modal-text" id="mText">هذا القسم مخصص لإدارة المدرسة والمسؤولين فقط لتعديل البيانات وحصر الأعداد.</p>
+
+<input type="password" id="adminPass" class="password-input" placeholder="أدخل كلمة مرور الإدارة">
+
+<div class="modal-actions">
+<button class="modal-btn btn-close" onclick="closeAdminModal()">رجوع</button>
+<button class="modal-btn btn-continue" id="actionBtn" onclick="proceedToPassword()">متابعة</button>
+</div>
+</div>
+</div>
 
 <script>
 const buttons = document.querySelectorAll('.btn');
@@ -189,45 +226,75 @@ clickSound.volume = 0.15;
 
 buttons.forEach(button => {
 button.addEventListener('click', function(e) {
+// إذا كان زر الإدارة لا تقم بالتحويل الافتراضي فوراً
+if(this.classList.contains('btn-admin')) return;
+
 e.preventDefault();
 this.classList.add('active-shake');
 clickSound.currentTime = 0;
 clickSound.play().catch(() => {});
 
+// تأثير الموجة المائية المطور والسريع
 const rect = this.getBoundingClientRect();
 const x = e.clientX - rect.left;
 const y = e.clientY - rect.top;
-
 const ripple = document.createElement('span');
 ripple.classList.add('liquid-ripple');
 ripple.style.left = `${x}px`;
 ripple.style.top = `${y}px`;
-
 const size = Math.max(rect.width, rect.height);
-ripple.style.width = `${size}px`;
-ripple.style.height = `${size}px`;
-ripple.style.marginLeft = `-${size/2}px`;
-ripple.style.marginTop = `-${size/2}px`;
-
+ripple.style.width = `${size}px`; ripple.style.height = `${size}px`;
+ripple.style.marginLeft = `-${size/2}px`; ripple.style.marginTop = `-${size/2}px`;
 this.appendChild(ripple);
 
 const targetUrl = this.getAttribute('href');
+// تقليل مدة الانتظار والدخول فوري وسريع (250ms فقط)
 setTimeout(() => {
 this.classList.remove('active-shake');
 ripple.remove();
 window.location.href = targetUrl;
-}, 280);
+}, 250);
 });
 });
 
-// الدالة السرية للتحقق من كلمة المرور وحماية لوحة التحكم
-function accessAdminPanel() {
-const password = prompt("الرجاء إدخال كلمة مرور الإدارة المعتمدة:");
+// دوال التحكم في نافذة الإدارة المنبثقة
+function openAdminModal(e) {
+e.preventDefault();
+document.getElementById('adminModal').classList.add('show');
+}
 
-if (password === "Mus3ffa") {
-window.location.href = "admin.html"; // فتح لوحة التحكم عند صحة الكلمة
-} else if (password !== null) {
-alert("عذراً، كلمة المرور غير صحيحة. الوصول مرفوض!");
+function closeAdminModal() {
+const modal = document.getElementById('adminModal');
+modal.classList.remove('show');
+// إعادة تعيين محتوى النافذة للحالة الأولى عند الإغلاق
+setTimeout(() => {
+document.getElementById('mTitle').innerText = "تنبيه أمني 🔐";
+document.getElementById('mText').style.display = "block";
+document.getElementById('adminPass').style.display = "none";
+document.getElementById('adminPass').value = "";
+document.getElementById('actionBtn').setAttribute('onclick', 'proceedToPassword()');
+}, 300);
+}
+
+function proceedToPassword() {
+// الانتقال للمرحلة الثانية: طلب كلمة السر داخل نفس النافذة
+document.getElementById('mTitle').innerText = "كلمة المرور المطلوبة";
+document.getElementById('mText').style.display = "none";
+
+const passInput = document.getElementById('adminPass');
+passInput.style.display = "block";
+passInput.focus();
+// تغيير وظيفة زر المتابعة ليقوم بفحص الكلمة المكتوبة
+document.getElementById('actionBtn').setAttribute('onclick', 'validateAdminPassword()');
+}
+
+function validateAdminPassword() {
+const enteredPass = document.getElementById('adminPass').value;
+if (enteredPass === "Mus3ffa") {
+window.location.href = "admin.html"; // الدخول الفوري للوحة التحكم
+} else {
+alert("عذراً، كلمة المرور خاطئة! الوصول مرفوض.");
+closeAdminModal();
 }
 }
 </script>
