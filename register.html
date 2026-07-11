@@ -36,6 +36,7 @@ box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
 position: relative;
 }
 
+/* رأس الصفحة وزر العودة */
 .header-area {
 display: flex;
 justify-content: space-between;
@@ -68,6 +69,7 @@ color: #111;
 -webkit-text-stroke: 0.5px #d4af37;
 }
 
+/* تنسيق المدخلات */
 .form-group {
 margin-bottom: 16px;
 text-align: right;
@@ -100,6 +102,7 @@ border-color: #d4af37;
 box-shadow: 0 0 10px rgba(214, 175, 55, 0.2);
 }
 
+/* تخصيص مظهر قوائم الخيارات لتبدو احترافية */
 select.form-control {
 cursor: pointer;
 appearance: none;
@@ -110,6 +113,7 @@ background-position: left 12px center;
 background-size: 18px;
 }
 
+/* زر الإرسال المائي */
 .submit-btn {
 width: 100%;
 padding: 16px;
@@ -129,6 +133,7 @@ transition: all 0.3s;
 transform: scale(0.97);
 }
 
+/* التنبيه الاحترافي أسفل الصفحة */
 .footer-notice {
 margin-top: 30px;
 font-size: 0.8rem;
@@ -139,7 +144,7 @@ border-top: 1px solid rgba(212, 175, 55, 0.2);
 padding-top: 15px;
 }
 
-/* ----- الشعار المنبثق التذكيري ----- */
+/* ----- تصميم الشعار المنبثق الذكي (Popup Modal) ----- */
 .modal-overlay {
 position: fixed;
 top: 0;
@@ -229,6 +234,7 @@ transition: all 0.2s;
 </head>
 <body>
 
+<!-- الشعار المنبثق التذكيري المخصص لجيل الإبداع والتميز -->
 <div class="modal-overlay" id="noticeModal">
 <div class="modal-box">
 <span class="modal-badge">ميزة استثنائية ✨</span>
@@ -247,6 +253,7 @@ transition: all 0.2s;
 </div>
 </div>
 
+<!-- الحاوية الرئيسية للتطبيق -->
 <div class="phone-container">
 
 <div class="header-area">
@@ -254,41 +261,42 @@ transition: all 0.2s;
 <h1 class="page-title">تسجيل طالب جديد</h1>
 </div>
 
+<!-- استمارة الإدخال الإلزامية بالكامل -->
 <form id="registrationForm" onsubmit="handleFormSubmit(event)">
 
 <div class="form-group">
 <label>الاسم رباعي</label>
-<input type="text" class="form-control" placeholder="أدخل اسم الطالب الكامل" required>
+<input type="text" id="studentName" class="form-control" placeholder="أدخل اسم الطالب الكامل" required>
 </div>
 
 <div class="form-group">
 <label>العمر</label>
-<input type="number" class="form-control" placeholder="عمر الطالب" required>
+<input type="number" id="studentAge" class="form-control" placeholder="عمر الطالب" required>
 </div>
 
 <div class="form-group">
-<label>رقم حدود الطالب</label>
-<input type="text" class="form-control" placeholder="مكون من 10 أرقام" pattern="\d{10}" title="يجب إدخال 10 أرقام فقط" maxlength="10" required>
+<label>رقم حدود الطالب (10 أرقام)</label>
+<input type="text" id="borderId" class="form-control" placeholder="مكون من 10 أرقام" pattern="\d{10}" title="يجب إدخل 10 أرقام فقط" maxlength="10" required>
 </div>
 
 <div class="form-group">
 <label>السكن الحالي</label>
-<input type="text" class="form-control" placeholder="المدينة / الحي" required>
+<input type="text" id="studentAddress" class="form-control" placeholder="المدينة / الحي" required>
 </div>
 
 <div class="form-group">
 <label>رقم ولي الأمر</label>
-<input type="tel" class="form-control" placeholder="05xxxxxxxx" required>
+<input type="tel" id="parentPhone" class="form-control" placeholder="05xxxxxxxx" required>
 </div>
 
 <div class="form-group">
 <label>رقم الترحيل</label>
-<input type="text" class="form-control" placeholder="رقم حافلة الترحيل أو اكتب لا يوجد" required>
+<input type="text" id="transportId" class="form-control" placeholder="رقم حافلة الترحيل أو اكتب لا يوجد" required>
 </div>
 
 <div class="form-group">
 <label>المدرسة الحالية</label>
-<select class="form-control" required>
+<select id="currentSchool" class="form-control" required>
 <option value="" disabled selected>حدد المدرسة الحالية...</option>
 <option value="jil-alibdaa">مدرسة جيل الإبداع والتميز</option>
 <option value="other-school">مدرسة أخرى</option>
@@ -297,12 +305,12 @@ transition: all 0.2s;
 
 <div class="form-group">
 <label>مستوى الطالب في اللغة الإنجليزية</label>
-<select class="form-control" required>
+<select id="studentLevel" class="form-control" required>
 <option value="" disabled selected>اضغط لتحديد المستوى...</option>
-<option value="average">متوسط</option>
-<option value="good">جيد</option>
-<option value="very-good">جيد جداً</option>
-<option value="excellent">ممتاز</option>
+<option value="متوسط">متوسط</option>
+<option value="جيد">جيد</option>
+<option value="جيد جداً">جيد جداً</option>
+<option value="ممتاز">ممتاز</option>
 </select>
 </div>
 
@@ -316,6 +324,7 @@ transition: all 0.2s;
 </div>
 
 <script>
+// دالة إغلاق الشعار الترحيبي المنبثق
 function closeModal() {
 const modal = document.getElementById('noticeModal');
 modal.style.opacity = '0';
@@ -324,9 +333,44 @@ modal.style.display = 'none';
 }, 400);
 }
 
+// دالة جمع البيانات وحفظها في ذاكرة النظام التلقائية لربطها بصفحة الإدارة والمتابعة
 function handleFormSubmit(event) {
 event.preventDefault();
-alert('تم استلام بيانات الطالب بنجاح، وسيتم التواصل معكم قريباً!');
+
+const name = document.getElementById('studentName').value;
+const age = document.getElementById('studentAge').value;
+const borderId = document.getElementById('borderId').value;
+const address = document.getElementById('studentAddress').value;
+const parentPhone = document.getElementById('parentPhone').value;
+const transportId = document.getElementById('transportId').value;
+const school = document.getElementById('currentSchool').value;
+const academicLevel = document.getElementById('studentLevel').value;
+
+const newStudent = {
+name: name,
+age: age,
+borderId: borderId,
+address: address,
+parentPhone: parentPhone,
+transportId: transportId,
+school: school,
+academicLevel: academicLevel
+};
+
+let studentsList = JSON.parse(localStorage.getItem('emp_students')) || [];
+
+// منع التسجيل المكرر بنفس رقم الحدود
+const isExist = studentsList.some(st => st.borderId === borderId);
+if(isExist) {
+alert('عذراً، رقم الحدود هذا مسجل مسبقاً في النظام!');
+return;
+}
+
+// حفظ وإرسال البيانات
+studentsList.push(newStudent);
+localStorage.setItem('emp_students', JSON.stringify(studentsList));
+
+alert('تم تسجيل الطالب بنجاح في برنامج EMP بنجاح!');
 window.location.href = 'index.html';
 }
 </script>
