@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة تحكم الإدارة - EMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+body { background: linear-gradient(135deg, #e0e5ec, #b8c6db); min-height: 100vh; padding: 20px; }
+
+.admin-container {
+width: 100%; max-width: 700px; margin: 0 auto;
+background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 30px; padding: 30px 20px;
+box-shadow: 0 25px 50px rgba(0,0,0,0.1); text-align: center;
+}
+
+h1 { color: #111; font-weight: 900; margin-bottom: 25px; -webkit-text-stroke: 0.5px #d4af37; }
+
+/* لوحة الإحصائيات وحصر العدد */
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 30px; }
+.stat-box { background: rgba(255,255,255,0.8); border: 1px solid rgba(214,175,55,0.3); padding: 15px 5px; border-radius: 15px; }
+.stat-box h3 { font-size: 0.85rem; color: #444; }
+.stat-box p { font-size: 1.6rem; font-weight: 900; color: #111; margin-top: 5px; }
+.j-color { color: #d4af37 !important; }
+
+/* قوائم الطلاب */
+.section-title { text-align: right; font-size: 1.1rem; font-weight: 700; color: #111; margin: 20px 0 10px 0; border-right: 4px solid #d4af37; padding-right: 8px; }
+.student-card { background: rgba(255,255,255,0.7); border-radius: 15px; padding: 15px; margin-bottom: 12px; text-align: right; box-shadow: 0 4px 10px rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: center; }
+.student-info h4 { font-size: 1rem; color: #111; margin-bottom: 4px; }
+.j-badge { background: #111; color: #d4af37; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 900; margin-right: 5px; border: 0.5px solid #d4af37;}
+.student-info p { font-size: 0.8rem; color: #555; }
+/* أداة تغيير المستوى للإدارة */
+.level-actions { text-align: left; }
+.level-select { padding: 8px; border-radius: 8px; border: 1px solid #d4af37; background: #fff; font-size: 0.85rem; font-weight: 700; outline: none; cursor: pointer; }
+
+.no-data { font-size: 0.9rem; color: #666; padding: 20px; background: rgba(255,255,255,0.3); border-radius: 15px; }
+.back-home { display: inline-block; margin-top: 25px; color: #111; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+
+<div class="admin-container">
+<h1>لوحة إدارة EMP</h1>
+
+<!-- حصر الأعداد -->
+<div class="stats-grid">
+<div class="stat-box"><h3>إجمالي الطلاب</h3><p id="total-count">0</p></div>
+<div class="stat-box"><h3>جيل الإبداع <span class="j-color">(J)</span></h3><p id="j-count" class="j-color">0</p></div>
+<div class="stat-box"><h3>المدارس الأخرى</h3><p id="other-count">0</p></div>
+</div>
+
+<!-- عرض وفرز الطلاب -->
+<div class="section-title">طلاب مدارس جيل الإبداع والتميز</div>
+<div id="j-students-list"></div>
+
+<div class="section-title">طلاب المدارس الأخرى</div>
+<div id="other-students-list"></div>
+
+<a href="index.html" class="back-home">⬅ العودة للرئيسية</a>
+</div>
+
+<script>
+function loadStudents() {
+const students = JSON.parse(localStorage.getItem('emp_students')) || [];
+
+// الفرز وحصر الأعداد
+const jStudents = students.filter(s => s.school === 'jil-alibdaa');
+const otherStudents = students.filter(s => s.school !== 'jil-alibdaa');
+
+document.getElementById('total-count').innerText = students.length;
+document.getElementById('j-count').innerText = jStudents.length;
+document.getElementById('other-count').innerText = otherStudents.length;
+
+renderList(jStudents, 'j-students-list', true);
+renderList(otherStudents, 'other-students-list', false);
+}
+
+function renderList(list, elementId, isJ) {
+const container = document.getElementById(elementId);
+container.innerHTML = '';
+
+if(list.length === 0) {
+container.innerHTML = '<div class="no-data">لا يوجد طلاب مسجلين حالياً</div>';
+return;
+}
+
+list.forEach(student => {
+const card = document.createElement('div');
+card.className = 'student-card';
+card.innerHTML = `
+<div class="student-info">
+<h4>${student.name} ${isJ ? '<span class="j-badge">J</span>' : ''}</h4>
+<p>رقم الحدود: ${student.borderId} | هاتف: ${student.parentPhone}</p>
+<p>المستوى الحالي المَعروض: <strong>${student.academicLevel}</strong></p>
+</div>
+<div class="level-actions">
+<select class="level-select" onchange="updateLevel('${student.borderId}', this.value)">
+<option value="" disabled selected>تعديل المستوى</option>
+<option value="متوسط">متوسط</option>
+<option value="جيد">جيد</option>
+<option value="جيد جداً">جيد جداً</option>
+<option value="ممتاز">ممتاز</option>
+</select>
+</div>
+`;
+container.appendChild(card);
+});
+}
+
+// دالة رفع وتعديل مستوى الطالب من قبل الإدارة
+function updateLevel(borderId, newLevel) {
+let students = JSON.parse(localStorage.getItem('emp_students')) || [];
+const index = students.findIndex(s => s.borderId === borderId);
+if(index !== -1) {
+students[index].academicLevel = newLevel;
+localStorage.setItem('emp_students', JSON.stringify(students));
+loadStudents(); // إعادة تحديث الشاشة فوراً
+alert('تم تحديث مستوى الطالب بنجاح وعرضه لولي الأمر!');
+}
+}
+
+// تشغيل التحميل عند فتح الصفحة
+window.onload = loadStudents;
+</script>
+</body>
+</html>
+
