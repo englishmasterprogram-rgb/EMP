@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل طالب جديد - EMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: 'Tajawal', sans-serif;
+-webkit-tap-highlight-color: transparent;
+}
+
+body {
+background: linear-gradient(135deg, #e0e5ec, #b8c6db);
+min-height: 100vh;
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+
+.phone-container {
+width: 100%;
+max-width: 400px;
+background: rgba(255, 255, 255, 0.4);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+border: 1px solid rgba(255, 255, 255, 0.5);
+border-radius: 35px;
+padding: 30px 20px;
+box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+position: relative;
+}
+
+.header-area {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 25px;
+padding: 0 10px;
+}
+
+.back-btn {
+color: #111;
+text-decoration: none;
+font-weight: 700;
+font-size: 0.9rem;
+background: rgba(255, 255, 255, 0.6);
+padding: 6px 14px;
+border-radius: 12px;
+border: 1px solid rgba(212, 175, 55, 0.3);
+transition: all 0.3s;
+}
+
+.back-btn:hover {
+background: #111;
+color: #d4af37;
+}
+
+.page-title {
+font-size: 1.4rem;
+font-weight: 900;
+color: #111;
+-webkit-text-stroke: 0.5px #d4af37;
+}
+
+.form-group {
+margin-bottom: 16px;
+text-align: right;
+}
+
+.form-group label {
+display: block;
+margin-bottom: 6px;
+font-size: 0.9rem;
+font-weight: 700;
+color: #222;
+padding-right: 5px;
+}
+
+.form-control {
+width: 100%;
+padding: 14px 16px;
+background: rgba(255, 255, 255, 0.7);
+border: 1px solid rgba(212, 175, 55, 0.25);
+border-radius: 14px;
+font-size: 1rem;
+color: #111;
+outline: none;
+transition: all 0.3s;
+}
+
+.form-control:focus {
+background: rgba(255, 255, 255, 0.95);
+border-color: #d4af37;
+box-shadow: 0 0 10px rgba(214, 175, 55, 0.2);
+}
+
+select.form-control {
+cursor: pointer;
+appearance: none;
+-webkit-appearance: none;
+background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23d4af37' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+background-repeat: no-repeat;
+background-position: left 12px center;
+background-size: 18px;
+}
+
+.submit-btn {
+width: 100%;
+padding: 16px;
+background: #111;
+color: #d4af37;
+border: 1px solid #d4af37;
+border-radius: 15px;
+font-size: 1.1rem;
+font-weight: 700;
+cursor: pointer;
+margin-top: 15px;
+box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+transition: all 0.3s;
+}
+
+.submit-btn:active {
+transform: scale(0.97);
+}
+
+.footer-notice {
+margin-top: 30px;
+font-size: 0.8rem;
+font-weight: 700;
+color: #444;
+line-height: 1.5;
+border-top: 1px solid rgba(212, 175, 55, 0.2);
+padding-top: 15px;
+}
+
+/* ----- الشعار المنبثق التذكيري ----- */
+.modal-overlay {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: rgba(0, 0, 0, 0.6);
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+display: flex;
+justify-content: center;
+align-items: center;
+z-index: 9999;
+opacity: 1;
+transition: opacity 0.4s ease;
+padding: 20px;
+}
+
+.modal-box {
+width: 100%;
+max-width: 360px;
+background: rgba(255, 255, 255, 0.9);
+border: 2px solid #d4af37;
+border-radius: 25px;
+padding: 30px 20px;
+text-align: center;
+box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+transform: scale(1);
+transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-badge {
+display: inline-block;
+background: #111;
+color: #d4af37;
+padding: 6px 16px;
+border-radius: 20px;
+font-size: 0.85rem;
+font-weight: 700;
+margin-bottom: 15px;
+border: 1px solid #d4af37;
+}
+
+.modal-title {
+font-size: 1.3rem;
+font-weight: 900;
+color: #111;
+margin-bottom: 15px;
+}
+
+.modal-features {
+display: flex;
+flex-direction: column;
+gap: 12px;
+margin-bottom: 25px;
+text-align: right;
+}
+
+.feature-item {
+background: rgba(214, 175, 55, 0.08);
+border-right: 4px solid #d4af37;
+padding: 10px 12px;
+border-radius: 4px 12px 12px 4px;
+font-size: 0.95rem;
+color: #222;
+font-weight: 500;
+}
+
+.feature-item strong {
+color: #111;
+font-weight: 700;
+}
+
+.modal-close-btn {
+background: linear-gradient(135deg, #111, #222);
+color: #d4af37;
+border: 1px solid #d4af37;
+padding: 12px 35px;
+border-radius: 12px;
+font-size: 1rem;
+font-weight: 700;
+cursor: pointer;
+box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+transition: all 0.2s;
+}
+</style>
+</head>
+<body>
+
+<div class="modal-overlay" id="noticeModal">
+<div class="modal-box">
+<span class="modal-badge">ميزة استثنائية ✨</span>
+<h2 class="modal-title">طلاب جيل الإبداع والتميز</h2>
+
+<div class="modal-features">
+<div class="feature-item">
+🎓 <strong>مفاجأة البرنامج:</strong> تمنح الشهادة المعتمدة <strong>بدون أي رسوم</strong> لطلاب جيل الإبداع والتميز.
+</div>
+<div class="feature-item">
+💻 <strong>حصص إضافية:</strong> إضافة حصة إلكترونية (أونلاين) <strong>صباح كل سبت</strong> مخصصة لطالب جيل الإبداع.
+</div>
+</div>
+
+<button class="modal-close-btn" onclick="closeModal()">متابعة التسجيل</button>
+</div>
+</div>
+
+<div class="phone-container">
+
+<div class="header-area">
+<a href="index.html" class="back-btn">رجوع</a>
+<h1 class="page-title">تسجيل طالب جديد</h1>
+</div>
+
+<form id="registrationForm" onsubmit="handleFormSubmit(event)">
+
+<div class="form-group">
+<label>الاسم رباعي</label>
+<input type="text" class="form-control" placeholder="أدخل اسم الطالب الكامل" required>
+</div>
+
+<div class="form-group">
+<label>العمر</label>
+<input type="number" class="form-control" placeholder="عمر الطالب" required>
+</div>
+
+<div class="form-group">
+<label>رقم حدود الطالب</label>
+<input type="text" class="form-control" placeholder="مكون من 10 أرقام" pattern="\d{10}" title="يجب إدخال 10 أرقام فقط" maxlength="10" required>
+</div>
+
+<div class="form-group">
+<label>السكن الحالي</label>
+<input type="text" class="form-control" placeholder="المدينة / الحي" required>
+</div>
+
+<div class="form-group">
+<label>رقم ولي الأمر</label>
+<input type="tel" class="form-control" placeholder="05xxxxxxxx" required>
+</div>
+
+<div class="form-group">
+<label>رقم الترحيل</label>
+<input type="text" class="form-control" placeholder="رقم حافلة الترحيل أو اكتب لا يوجد" required>
+</div>
+
+<div class="form-group">
+<label>المدرسة الحالية</label>
+<select class="form-control" required>
+<option value="" disabled selected>حدد المدرسة الحالية...</option>
+<option value="jil-alibdaa">مدرسة جيل الإبداع والتميز</option>
+<option value="other-school">مدرسة أخرى</option>
+</select>
+</div>
+
+<div class="form-group">
+<label>مستوى الطالب في اللغة الإنجليزية</label>
+<select class="form-control" required>
+<option value="" disabled selected>اضغط لتحديد المستوى...</option>
+<option value="average">متوسط</option>
+<option value="good">جيد</option>
+<option value="very-good">جيد جداً</option>
+<option value="excellent">ممتاز</option>
+</select>
+</div>
+
+<button type="submit" class="submit-btn">تأكيد وإرسال البيانات</button>
+</form>
+
+<div class="footer-notice">
+⚠️ تنبيه: برنامج ENGLISH MASTER PROGRAM (EMP) يتبع إدارياً لمدارس جيل الإبداع والتميز.
+</div>
+
+</div>
+
+<script>
+function closeModal() {
+const modal = document.getElementById('noticeModal');
+modal.style.opacity = '0';
+setTimeout(() => {
+modal.style.display = 'none';
+}, 400);
+}
+
+function handleFormSubmit(event) {
+event.preventDefault();
+alert('تم استلام بيانات الطالب بنجاح، وسيتم التواصل معكم قريباً!');
+window.location.href = 'index.html';
+}
+</script>
+
+</body>
+</html>
+
