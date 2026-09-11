@@ -4,15 +4,14 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ENGLISH MASTER PROGRAM (EMP)</title>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root {
 --main-gold: #d4af37;
---gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
---glass-bg: rgba(255, 255, 255, 0.25);
---glass-border: rgba(255, 255, 255, 0.4);
---glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
---text-dark: #1a1a1a;
+--glass-bg: rgba(255, 255, 255, 0.12);
+--glass-border: rgba(255, 255, 255, 0.25);
+--glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+--text-dark: #000000;
 }
 
 * {
@@ -23,7 +22,12 @@ font-family: 'Cairo', sans-serif;
 }
 
 body {
-background: linear-gradient(135deg, #e0eafc 0%, #cfdef3 100%);
+/* استبدل bg.jpg باسم/رابط صورتك */
+background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('bg.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
 min-height: 100vh;
 display: flex;
 justify-content: center;
@@ -32,11 +36,11 @@ padding: 20px;
 overflow-x: hidden;
 }
 
-/* خلفية ضبابية وتنسيق الكارت بنمط iOS */
+/* البطاقة الرئيسية الشفافة المائية */
 .main-card {
-background: rgba(255, 255, 255, 0.45);
-backdrop-filter: blur(16px);
--webkit-backdrop-filter: blur(16px);
+background: rgba(255, 255, 255, 0.15);
+backdrop-filter: blur(12px);
+-webkit-backdrop-filter: blur(12px);
 border-radius: 30px;
 padding: 40px 25px;
 width: 100%;
@@ -47,10 +51,9 @@ text-align: center;
 position: relative;
 }
 
-/* التنقل بتأثير Fade In */
 .view-section {
 display: none;
-animation: fadeIn 0.5s ease-in-out forwards;
+animation: fadeIn 0.4s ease-in-out forwards;
 }
 
 .view-section.active {
@@ -62,47 +65,60 @@ from { opacity: 0; transform: scale(0.97) translateY(10px); }
 to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* عنوان اسم الكورس بالأسود والأطراف الذهبية والانعكاس المائي */
+/* قسم العنوان والخط الفلسفي بالانعكاس المائي */
 .brand-title-container {
 margin-bottom: 35px;
 position: relative;
 }
 
+/* شعار EMP */
 .brand-title {
-font-size: 2.8rem;
+font-family: 'Cinzel', serif, 'Cairo';
+font-size: 3rem;
 font-weight: 900;
 color: #000000;
-letter-spacing: 2px;
-line-height: 1.1;
-/* إطار ذهبي للنص */
+letter-spacing: 3px;
+line-height: 1;
 -webkit-text-stroke: 1.5px #d4af37;
-text-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-position: relative;
+text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* الانعكاس المائي للعنوان */
-.brand-title::after {
-content: "EMP";
+/* نص English Mastery Program بأسلوب فلسفي ذهبي مع انعكاس */
+.brand-subtitle-philosophical {
+font-family: 'Cinzel', serif, 'Cairo';
+font-size: 1.05rem;
+font-weight: 800;
+color: #000000;
+letter-spacing: 2px;
+margin-top: 10px;
+text-transform: uppercase;
+-webkit-text-stroke: 0.6px #d4af37;
+position: relative;
+display: inline-block;
+text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* الانعكاس المائي للعنوان والفرعي */
+.brand-title-container::after {
+content: "EMP\A English Mastery Program";
+white-space: pre;
 position: absolute;
 left: 0;
 right: 0;
 top: 100%;
-transform: scaleY(-0.7) translateY(-12px);
-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 80%);
--webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 80%);
-opacity: 0.4;
+font-family: 'Cinzel', serif;
+font-size: 0.9rem;
+font-weight: 900;
+transform: scaleY(-0.7) translateY(-10px);
+mask-image: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 85%);
+-webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, transparent 85%);
+opacity: 0.45;
 pointer-events: none;
+color: #000;
+-webkit-text-stroke: 0.8px #d4af37;
 }
 
-.brand-subtitle {
-font-size: 1rem;
-font-weight: 800;
-color: #333;
-margin-top: 10px;
-letter-spacing: 1px;
-}
-
-/* أزرار iOS الزجاجية الشفافة */
+/* أزرار iOS الشفافة المائية */
 .menu-buttons {
 display: flex;
 flex-direction: column;
@@ -113,118 +129,122 @@ gap: 15px;
 display: flex;
 align-items: center;
 justify-content: space-between;
-background: rgba(255, 255, 255, 0.35);
-backdrop-filter: blur(10px);
--webkit-backdrop-filter: blur(10px);
-border: 1px solid rgba(255, 255, 255, 0.6);
+background: rgba(255, 255, 255, 0.18);
+backdrop-filter: blur(8px);
+-webkit-backdrop-filter: blur(8px);
+border: 1px solid rgba(255, 255, 255, 0.35);
 padding: 16px 22px;
 border-radius: 20px;
 font-size: 1.05rem;
-font-weight: 700;
-color: var(--text-dark);
+font-weight: 800;
+color: #000000;
 cursor: pointer;
 text-decoration: none;
-box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+transition: all 0.3s ease;
+text-shadow: 0 1px 2px rgba(255, 255, 255, 0.5);
 }
 
-.btn-glass:hover, .btn-glass:active {
-background: rgba(255, 255, 255, 0.65);
-transform: translateY(-3px) scale(1.02);
-box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-border-color: rgba(212, 175, 55, 0.8);
-}
-
-/* زر لوحة الإدارة المميز */
-.btn-admin {
-background: rgba(212, 175, 55, 0.15);
-border: 1px solid rgba(212, 175, 55, 0.5);
-color: #8a6d1b;
-}
-
-.btn-admin:hover {
-background: rgba(212, 175, 55, 0.3);
-border-color: #d4af37;
-}
-
-/* تصميم الحقول داخل النماذج */
-.form-group {
-text-align: right;
-margin-bottom: 15px;
-}
-
-.form-group label {
-display: block;
-margin-bottom: 6px;
-font-weight: 700;
-font-size: 0.9rem;
-color: #222;
-}
-
-.form-group input, .form-group select {
-width: 100%;
-padding: 14px;
-background: rgba(255, 255, 255, 0.5);
-backdrop-filter: blur(5px);
-border: 1px solid rgba(255, 255, 255, 0.7);
-border-radius: 14px;
-font-size: 0.95rem;
-outline: none;
-color: #000;
-transition: 0.3s;
-}
-
-.form-group input:focus, .form-group select:focus {
-background: rgba(255, 255, 255, 0.85);
-border-color: #d4af37;
-box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
-}
-
-.btn-action {
-width: 100%;
-background: linear-gradient(135deg, #1a1a1a 0%, #333333 100%);
-color: #d4af37;
-border: 1px solid #d4af37;
-padding: 15px;
-border-radius: 16px;
-font-weight: 800;
-font-size: 1rem;
-cursor: pointer;
-margin-top: 10px;
-transition: 0.3s;
-box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-}
-
-.btn-action:hover {
+.btn-glass:hover {
+background: rgba(255, 255, 255, 0.35);
 transform: translateY(-2px);
-box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+border-color: rgba(212, 175, 55, 0.9);
+box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
-.btn-back {
-background: none;
-border: none;
-color: #555;
+/* زر الإدارة المصغر الشفاف */
+.btn-admin-small {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+background: rgba(0, 0, 0, 0.25);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(255, 255, 255, 0.3);
+color: #ffffff;
+font-size: 0.8rem;
 font-weight: 700;
+padding: 6px 16px;
+border-radius: 20px;
 cursor: pointer;
-margin-top: 18px;
-display: inline-block;
-transition: 0.2s;
+margin-top: 20px;
+transition: 0.3s;
 }
 
-.btn-back:hover {
-color: #000;
+.btn-admin-small:hover {
+background: rgba(0, 0, 0, 0.5);
+border-color: var(--main-gold);
 }
+
+/* النوافذ المنبثقة الشفافة المائية */
+.modal-overlay {
+display: none;
+position: fixed;
+top: 0; left: 0; right: 0; bottom: 0;
+background: rgba(0, 0, 0, 0.5);
+backdrop-filter: blur(8px);
+z-index: 999;
+justify-content: center;
+align-items: center;
+padding: 20px;
+}
+
+.modal-box {
+background: rgba(255, 255, 255, 0.85);
+backdrop-filter: blur(15px);
+border-radius: 24px;
+padding: 25px;
+width: 100%;
+max-width: 360px;
+text-align: center;
+box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+border: 1px solid #d4af37;
+animation: popIn 0.3s ease;
+}
+
+@keyframes popIn {
+from { transform: scale(0.85); opacity: 0; }
+to { transform: scale(1); opacity: 1; }
+}
+
+.modal-box h3 { font-size: 1.1rem; color: #8a1f1f; margin-bottom: 8px; font-weight: 800; }
+.modal-box p { font-size: 0.85rem; color: #222; margin-bottom: 15px; font-weight: 700; }
+.modal-box input {
+width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.7);
+border: 2px solid #ddd; border-radius: 12px; text-align: center;
+font-size: 1rem; outline: none; margin-bottom: 12px;
+}
+.modal-box input:focus { border-color: #d4af37; }
+
+.modal-actions { display: flex; gap: 10px; }
+.btn-modal { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; }
+.btn-confirm { background: #1a1a1a; color: #d4af37; }
+.btn-cancel { background: rgba(0, 0, 0, 0.1); color: #333; }
+
+/* الحقول داخل الصفحات */
+.form-group { text-align: right; margin-bottom: 12px; }
+.form-group label { display: block; margin-bottom: 5px; font-weight: 800; font-size: 0.85rem; color: #000; }
+.form-group input, .form-group select {
+width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.35);
+backdrop-filter: blur(5px); border: 1px solid rgba(255, 255, 255, 0.5);
+border-radius: 12px; font-size: 0.9rem; outline: none; color: #000; font-weight: 700;
+}
+.btn-action {
+width: 100%; background: rgba(0, 0, 0, 0.85); color: #d4af37; border: 1px solid #d4af37;
+padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px;
+}
+.btn-back { background: none; border: none; color: #000; font-weight: 800; cursor: pointer; margin-top: 15px; }
 </style>
 </head>
 <body>
 
 <div class="main-card">
 
-<!-- 1. الشاشة الرئيسية (القائمة) -->
+<!-- 1. الشاشة الرئيسية -->
 <div id="mainView" class="view-section active">
 <div class="brand-title-container">
 <h1 class="brand-title">EMP</h1>
-<p class="brand-subtitle">ENGLISH MASTER PROGRAM</p>
+<div class="brand-subtitle-philosophical">English Mastery Program</div>
 </div>
 
 <div class="menu-buttons">
@@ -240,41 +260,26 @@ color: #000;
 <button class="btn-glass" onclick="switchView('contactView')">
 <span>📞 تواصل معنا</span> ⬅
 </button>
-<!-- زر لوحة الإدارة الظاهر -->
-<button class="btn-glass btn-admin" onclick="openAdminLink()">
-<span>⚙️ لوحة تحكم الإدارة</span> ⬅
-</button>
-</div>
 </div>
 
-<!-- 2. شاشة تسجيل طالب جديد -->
+<!-- زر الإدارة المصغر الشفاف -->
+<button class="btn-admin-small" onclick="showAdminAuthModal()">
+🔒 لوحة الإدارة
+</button>
+</div>
+
+<!-- 2. تسجيل طالب جديد -->
 <div id="registerView" class="view-section">
 <div class="brand-title-container">
-<h2 style="font-size:1.8rem; color:#000;">تسجيل طالب جديد</h2>
-<p class="brand-subtitle">أدخل البيانات للالتحاق بالبرنامج</p>
+<h2 style="font-size:1.5rem; color:#000;">تسجيل طالب جديد</h2>
 </div>
 
 <form id="studentForm">
-<div class="form-group">
-<label>الاسم رباعي</label>
-<input type="text" id="fullName" required placeholder="اسم الطالب">
-</div>
-<div class="form-group">
-<label>العمر</label>
-<input type="number" id="age" required placeholder="العمر">
-</div>
-<div class="form-group">
-<label>رقم حدود الطالب</label>
-<input type="text" id="borderNumber" required placeholder="رقم الحدود">
-</div>
-<div class="form-group">
-<label>السكن الحالي</label>
-<input type="text" id="address" required placeholder="الحي / المدينة">
-</div>
-<div class="form-group">
-<label>رقم ولي الأمر</label>
-<input type="tel" id="parentPhone" required placeholder="05xxxxxxxx">
-</div>
+<div class="form-group"><label>الاسم رباعي</label><input type="text" id="fullName" required placeholder="اسم الطالب"></div>
+<div class="form-group"><label>العمر</label><input type="number" id="age" required placeholder="العمر"></div>
+<div class="form-group"><label>رقم حدود الطالب</label><input type="text" id="borderNumber" required placeholder="رقم الحدود"></div>
+<div class="form-group"><label>السكن الحالي</label><input type="text" id="address" required placeholder="الحي / المدينة"></div>
+<div class="form-group"><label>رقم ولي الأمر</label><input type="tel" id="parentPhone" required placeholder="05xxxxxxxx"></div>
 <div class="form-group">
 <label>المدرسة الحالية</label>
 <select id="schoolSelect" required>
@@ -293,42 +298,32 @@ color: #000;
 <option value="ممتاز">ممتاز</option>
 </select>
 </div>
-
 <button type="submit" class="btn-action" id="submitBtn">تأكيد وإرسال البيانات</button>
 </form>
 <button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
 </div>
 
-<!-- 3. شاشة الاستعلام ومتابعة المستويات -->
+<!-- 3. متابعة المستوى -->
 <div id="trackView" class="view-section">
-<div class="brand-title-container">
-<h2 style="font-size:1.8rem; color:#000;">متابعة مستوى الطالب</h2>
-</div>
-<div class="form-group">
-<label>أدخل رقم حدود الطالب للاستعلام:</label>
-<input type="text" id="searchBorder" placeholder="رقم الحدود">
-</div>
+<div class="brand-title-container"><h2 style="font-size:1.5rem; color:#000;">متابعة مستوى الطالب</h2></div>
+<div class="form-group"><label>أدخل رقم الحدود:</label><input type="text" id="searchBorder" placeholder="رقم الحدود"></div>
 <button class="btn-action" onclick="searchStudent()">بحث واستعلام</button>
-<div id="searchResult" style="margin-top: 20px; font-weight:700;"></div>
+<div id="searchResult" style="margin-top: 15px; font-weight:700;"></div>
 <button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
 </div>
 
-<!-- 4. شاشة نبذة عن المدرسة -->
+<!-- 4. نبذة عن البرنامج -->
 <div id="aboutView" class="view-section">
-<div class="brand-title-container">
-<h2 style="font-size:1.8rem; color:#000;">عن البرنامج</h2>
-</div>
-<p style="text-align: right; line-height: 1.7; font-weight:600; color:#222;">
+<div class="brand-title-container"><h2 style="font-size:1.5rem; color:#000;">عن البرنامج</h2></div>
+<p style="text-align: right; line-height: 1.6; font-weight:700; color:#000;">
 برنامج ENGLISH MASTER PROGRAM يتبع إدارياً لمدارس جيل الإبداع والتميز، ويهدف لتطوير مهارات الطلاب في اللغة الإنجليزية عبر مناهج تفاعلية وحصص إضافية.
 </p>
 <button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
 </div>
 
-<!-- 5. شاشة تواصل معنا -->
+<!-- 5. تواصل معنا -->
 <div id="contactView" class="view-section">
-<div class="brand-title-container">
-<h2 style="font-size:1.8rem; color:#000;">تواصل معنا</h2>
-</div>
+<div class="brand-title-container"><h2 style="font-size:1.5rem; color:#000;">تواصل معنا</h2></div>
 <div class="menu-buttons">
 <a href="https://wa.me/" target="_blank" class="btn-glass">💬 مجموعة الواتساب الرسمية</a>
 <a href="#" target="_blank" class="btn-glass">🎵 حساب تيك توك</a>
@@ -338,7 +333,20 @@ color: #000;
 
 </div>
 
-<!-- مكتبات Firebase -->
+<!-- نافذة تسجيل دخول الإدارة -->
+<div class="modal-overlay" id="adminModal">
+<div class="modal-box">
+<h3>⚠️ تنبيه إداري</h3>
+<p>هذه الصفحة غير مسموح بالدخول إليها إلا لمدراء الإدارة فقط.</p>
+<input type="password" id="adminPasswordInput" placeholder="أدخل كلمة المرور">
+<div class="modal-actions">
+<button class="btn-modal btn-confirm" onclick="verifyAdminPassword()">دخول</button>
+<button class="btn-modal btn-cancel" onclick="closeAdminModal()">إلغاء</button>
+</div>
+</div>
+</div>
+
+<!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
@@ -357,12 +365,31 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 function switchView(viewId) {
-document.querySelectorAll('.view-section').forEach(view => {
-view.classList.remove('active');
-});
+document.querySelectorAll('.view-section').forEach(view => view.classList.remove('active'));
 document.getElementById(viewId).classList.add('active');
 }
 
+/* حماية الإدارة بكلمة المرور Mus3ab */
+function showAdminAuthModal() {
+document.getElementById('adminModal').style.display = 'flex';
+document.getElementById('adminPasswordInput').focus();
+}
+
+function closeAdminModal() {
+document.getElementById('adminModal').style.display = 'none';
+document.getElementById('adminPasswordInput').value = '';
+}
+
+function verifyAdminPassword() {
+const pwd = document.getElementById('adminPasswordInput').value;
+if (pwd === "Mus3ab") {
+window.location.href = "admin.html";
+} else {
+alert("كلمة المرور غير صحيحة!");
+}
+}
+
+/* تسجيل الطلاب */
 document.getElementById('studentForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 const submitBtn = document.getElementById('submitBtn');
@@ -386,7 +413,7 @@ alert("تم تسجيل الطالب بنجاح!");
 document.getElementById('studentForm').reset();
 switchView('mainView');
 } catch (error) {
-console.error("خطأ:", error);
+console.error(error);
 alert("حدث خطأ أثناء حفظ البيانات.");
 } finally {
 submitBtn.innerText = "تأكيد وإرسال البيانات";
@@ -394,6 +421,7 @@ submitBtn.disabled = false;
 }
 });
 
+/* الاستعلام */
 async function searchStudent() {
 const borderNo = document.getElementById('searchBorder').value.trim();
 const resultDiv = document.getElementById('searchResult');
@@ -407,13 +435,9 @@ resultDiv.innerHTML = "<span style='color:red;'>لم يتم العثور على 
 } else {
 snapshot.forEach(doc => {
 const data = doc.data();
-resultDiv.innerHTML = `<div style='background:rgba(255,255,255,0.6); padding:15px; border-radius:12px; color:#000;'>اسم الطالب: ${data.fullName}<br>المستوى: ${data.englishLevel}</div>`;
+resultDiv.innerHTML = `<div style='background:rgba(255,255,255,0.7); padding:12px; border-radius:10px; color:#000;'>الطالب: ${data.fullName}<br>المستوى: ${data.englishLevel}</div>`;
 });
 }
-}
-
-function openAdminLink() {
-window.location.href = "admin.html";
 }
 </script>
 </body>
