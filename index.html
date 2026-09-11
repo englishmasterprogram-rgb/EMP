@@ -3,302 +3,230 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EMP - English Master Program</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+<title>تسجيل طالب جديد - EMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+:root {
+--main-blue: #0a70f3;
+--dark-blue: #054c9e;
+--bg-color: #f0f2f5;
+--white: #ffffff;
+--card-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
 * {
 box-sizing: border-box;
 margin: 0;
 padding: 0;
-font-family: 'Tajawal', sans-serif;
--webkit-tap-highlight-color: transparent;
+font-family: 'Cairo', sans-serif;
 }
 
 body {
-background: linear-gradient(135deg, #e0e5ec, #b8c6db);
+background-color: var(--bg-color);
 min-height: 100vh;
 display: flex;
 justify-content: center;
 align-items: center;
 padding: 20px;
-overflow-x: hidden;
-position: relative;
 }
 
-.phone-container {
+/* تأثير الـ Fade In للتنقل والسلاسة */
+.fade-in {
+animation: fadeIn 0.6s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+from { opacity: 0; transform: translateY(15px); }
+to { opacity: 1; transform: translateY(0); }
+}
+
+.form-container {
+background: var(--white);
 width: 100%;
-max-width: 400px;
-background: rgba(255, 255, 255, 0.4);
-backdrop-filter: blur(20px);
--webkit-backdrop-filter: blur(20px);
-border: 1px solid rgba(255, 255, 255, 0.5);
-border-radius: 35px;
-padding: 45px 25px;
-box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
+max-width: 500px;
+padding: 30px;
+border-radius: 16px;
+box-shadow: var(--card-shadow);
+border-top: 5px solid var(--main-blue);
+}
+
+.form-header {
 text-align: center;
+margin-bottom: 20px;
 }
 
-.logo-container {
-margin-bottom: 35px;
-position: relative;
-animation: floatLogo 4s ease-in-out infinite;
+.form-header h2 {
+color: var(--dark-blue);
+font-weight: 800;
+margin-bottom: 5px;
 }
 
-.logo-text {
-font-size: 4rem;
-font-weight: 900;
-color: #111111;
-position: relative;
-display: inline-block;
-line-height: 1;
--webkit-text-stroke: 1.5px #d4af37;
-text-shadow: 0 10px 15px rgba(0, 0, 0, 0.12);
+.form-group {
+margin-bottom: 15px;
+text-align: right;
 }
 
-.buttons-list {
-display: flex;
-flex-direction: column;
-gap: 16px;
-filter: url('#liquid-filter');
-}
-
-.btn {
+.form-group label {
 display: block;
-padding: 16px 20px;
-background: rgba(255, 255, 255, 0.75);
-border: 1px solid rgba(212, 175, 55, 0.25);
-border-radius: 18px;
-color: #1a1a1a;
-font-size: 1.1rem;
+margin-bottom: 5px;
+font-weight: 600;
+color: #333;
+}
+
+.form-group input, .form-group select {
+width: 100%;
+padding: 12px;
+border: 2px solid #e0e6ed;
+border-radius: 8px;
+font-size: 0.95rem;
+outline: none;
+transition: border-color 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus {
+border-color: var(--main-blue);
+}
+
+.btn-submit {
+width: 100%;
+background: var(--main-blue);
+color: white;
+border: none;
+padding: 14px;
+border-radius: 8px;
 font-weight: 700;
-text-decoration: none;
-transition: background 0.2s, color 0.2s, border-color 0.2s;
-position: relative;
-overflow: hidden;
-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.02);
+font-size: 1rem;
+cursor: pointer;
+transition: background 0.3s;
+margin-top: 10px;
 }
 
-/* تمييز زر الإدارة باللون الأحمر */
-.btn-admin {
-background: rgba(231, 76, 60, 0.15);
-border-color: rgba(231, 76, 60, 0.4);
-color: #c0392b;
+.btn-submit:hover {
+background: var(--dark-blue);
 }
-
-.btn::before {
-content: '';
-position: absolute;
-top: 0;
-left: -100%;
-width: 60%;
-height: 100%;
-background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-transform: skewX(-20deg);
-animation: liquidShimmer 6s infinite;
-}
-
-.btn:hover, .btn:active {
-background: #111111;
-color: #d4af37;
-border-color: #d4af37;
-}
-
-.btn-admin:hover, .btn-admin:active {
-background: #c0392b;
-color: #ffffff;
-border-color: #a93226;
-}
-
-/* حركة اهتزاز خفيفة وسريعة جداً */
-.btn.active-shake {
-animation: lightShake 0.15s linear 2;
-}
-
-.liquid-ripple {
-position: absolute;
-border-radius: 50%;
-background: rgba(214, 175, 55, 0.3);
-transform: scale(0);
-animation: rippleEffect 0.4s ease-out forwards;
-pointer-events: none;
-}
-
-/* ----- نافذة حماية لوحة الإدارة المنبثقة ----- */
-.modal-overlay {
-position: fixed;
-top: 0; left: 0; width: 100%; height: 100%;
-background: rgba(0, 0, 0, 0.5);
-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-display: flex; justify-content: center; align-items: center;
-z-index: 9999; opacity: 0; pointer-events: none;
-transition: opacity 0.3s ease;
-padding: 20px;
-}
-.modal-overlay.show { opacity: 1; pointer-events: auto; }
-
-.modal-box {
-width: 100%; max-width: 340px;
-background: rgba(255, 255, 255, 0.9);
-border: 2px solid #c0392b; border-radius: 25px;
-padding: 30px 20px; text-align: center;
-box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
-transform: scale(0.9); transition: transform 0.3s ease;
-}
-.modal-overlay.show .modal-box { transform: scale(1); }
-
-.modal-title { font-size: 1.25rem; font-weight: 900; color: #c0392b; margin-bottom: 12px; }
-.modal-text { font-size: 0.95rem; color: #333; margin-bottom: 20px; font-weight: 700; line-height: 1.5; }
-
-.password-input {
-width: 100%; padding: 12px; border-radius: 12px;
-border: 1px solid #ccc; margin-bottom: 20px;
-text-align: center; font-size: 1rem; font-weight: 700; outline: none;
-display: none; /* مخفي في البداية ويظهر عند ضغط متابعة */
-}
-.password-input:focus { border-color: #c0392b; }
-
-.modal-actions { display: flex; gap: 12px; justify-content: center; }
-.modal-btn {
-flex: 1; padding: 12px; border-radius: 12px; font-size: 0.95rem;
-font-weight: 700; cursor: pointer; border: none; transition: 0.2s;
-}
-.btn-close { background: #e0e5ec; color: #333; }
-.btn-continue { background: #c0392b; color: #fff; }
-.modal-btn:active { transform: scale(0.96); }
-
-/* الأنيميشن الجديد */
-@keyframes rippleEffect { to { transform: scale(3); opacity: 0; } }
-@keyframes lightShake { 0% { transform: translateX(0); } 25% { transform: translateX(-2px); } 75% { transform: translateX(2px); } 100% { transform: translateX(0); } }
-@keyframes liquidShimmer { 0% { left: -100%; } 15% { left: 150%; } 100% { left: 150%; } }
-@keyframes floatLogo { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 </style>
 </head>
 <body>
 
-<svg style="position: absolute; width: 0; height: 0;" xmlns="http://www.w3.org/2000/svg" version="1.1">
-<defs>
-<filter id="liquid-filter">
-<feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
-<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 18 -7" result="goo" />
-<feBlend in="SourceGraphic" in2="goo" />
-</filter>
-</defs>
-</svg>
-
-<audio id="click-sound" preload="auto">
-<source src="https://assets.mixkit.co/active_storage/sfx/2568/2568-84.wav" type="audio/wav">
-</audio>
-
-<div class="phone-container">
-<div class="logo-container">
-<h1 class="logo-text">EMP</h1>
+<div class="form-container fade-in">
+<div class="form-header">
+<h2>تسجيل طالب جديد (EMP)</h2>
+<p>أدخل بيانات الطالب للالتحاق بالبرنامج</p>
 </div>
 
-<nav class="buttons-list">
-<a href="register.html" class="btn">تسجيل طالب جديد</a>
-<a href="academic-level.html" class="btn">متابعة مستوى الطالب الأكاديمي</a>
-<a href="about.html" class="btn">حول أو نبذة عن المدرسة</a>
-<a href="contact.html" class="btn">تواصل معنا</a>
-<!-- زر الإدارة المضاف باللون الأحمر الرائع -->
-<a href="#" class="btn btn-admin" onclick="openAdminModal(event)">لوحة تحكم الإدارة 🔐</a>
-</nav>
+<form id="studentForm">
+<div class="form-group">
+<label>الاسم رباعي</label>
+<input type="text" id="fullName" required placeholder="مثال: محمد أحمد علي">
 </div>
 
-<!-- النافذة المنبثقة الذكية المخصصة للإدارة -->
-<div class="modal-overlay" id="adminModal">
-<div class="modal-box">
-<h2 class="modal-title" id="mTitle">تنبيه أمني 🔐</h2>
-<p class="modal-text" id="mText">هذا القسم مخصص لإدارة المدرسة والمسؤولين فقط لتعديل البيانات وحصر الأعداد.</p>
+<div class="form-group">
+<label>العمر</label>
+<input type="number" id="age" required placeholder="أدخل العمر">
+</div>
 
-<input type="password" id="adminPass" class="password-input" placeholder="أدخل كلمة مرور الإدارة">
+<div class="form-group">
+<label>رقم حدود الطالب</label>
+<input type="text" id="borderNumber" required placeholder="أدخل رقم الحدود">
+</div>
 
-<div class="modal-actions">
-<button class="modal-btn btn-close" onclick="closeAdminModal()">رجوع</button>
-<button class="modal-btn btn-continue" id="actionBtn" onclick="proceedToPassword()">متابعة</button>
+<div class="form-group">
+<label>السكن الحالي</label>
+<input type="text" id="address" required placeholder="المدينة / الحي">
 </div>
+
+<div class="form-group">
+<label>رقم ولي الأمر</label>
+<input type="tel" id="parentPhone" required placeholder="05xxxxxxxx">
 </div>
+
+<div class="form-group">
+<label>المدرسة الحالية</label>
+<select id="schoolSelect" required>
+<option value="" disabled selected>حدد المدرسة...</option>
+<option value="مدرسة جيل الإبداع والتميز">مدرسة جيل الإبداع والتميز</option>
+<option value="مدرسة أخرى">مدرسة أخرى</option>
+</select>
 </div>
+
+<div class="form-group">
+<label>مستوى الطالب في اللغة الإنجليزية</label>
+<select id="levelSelect" required>
+<option value="" disabled selected>حدد المستوى...</option>
+<option value="مبتدئ">مبتدئ</option>
+<option value="متوسط">متوسط</option>
+
+<option value="ممتاز">ممتاز</option>
+</select>
+</div>
+
+<button type="submit" class="btn-submit" id="submitBtn">تأكيد وإرسال البيانات</button>
+</form>
+</div>
+
+<!-- مكتبات Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
 <script>
-const buttons = document.querySelectorAll('.btn');
-const clickSound = document.getElementById('click-sound');
-clickSound.volume = 0.15;
+// ⚠️ استبدل هذه الإعدادات ببيانات مشروعك من Firebase Console
+const firebaseConfig = {
+apiKey: "YOUR_API_KEY",
+authDomain: "YOUR_PROJECT.firebaseapp.com",
+projectId: "YOUR_PROJECT_ID",
+storageBucket: "YOUR_PROJECT.appspot.com",
+messagingSenderId: "YOUR_SENDER_ID",
+appId: "YOUR_APP_ID"
+};
 
-buttons.forEach(button => {
-button.addEventListener('click', function(e) {
-// إذا كان زر الإدارة لا تقم بالتحويل الافتراضي فوراً
-if(this.classList.contains('btn-admin')) return;
+// تهيئة Firebase
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
+// التعامل مع إرسال النموذج
+document.getElementById('studentForm').addEventListener('submit', async (e) => {
 e.preventDefault();
-this.classList.add('active-shake');
-clickSound.currentTime = 0;
-clickSound.play().catch(() => {});
 
-// تأثير الموجة المائية المطور والسريع
-const rect = this.getBoundingClientRect();
-const x = e.clientX - rect.left;
-const y = e.clientY - rect.top;
-const ripple = document.createElement('span');
-ripple.classList.add('liquid-ripple');
-ripple.style.left = `${x}px`;
-ripple.style.top = `${y}px`;
-const size = Math.max(rect.width, rect.height);
-ripple.style.width = `${size}px`; ripple.style.height = `${size}px`;
-ripple.style.marginLeft = `-${size/2}px`; ripple.style.marginTop = `-${size/2}px`;
-this.appendChild(ripple);
+const submitBtn = document.getElementById('submitBtn');
+submitBtn.innerText = "جاري الإرسال...";
+submitBtn.disabled = true;
 
-const targetUrl = this.getAttribute('href');
-// تقليل مدة الانتظار والدخول فوري وسريع (250ms فقط)
-setTimeout(() => {
-this.classList.remove('active-shake');
-ripple.remove();
-window.location.href = targetUrl;
-}, 250);
+const studentData = {
+fullName: document.getElementById('fullName').value,
+age: document.getElementById('age').value,
+borderNumber: document.getElementById('borderNumber').value,
+address: document.getElementById('address').value,
+parentPhone: document.getElementById('parentPhone').value,
+school: document.getElementById('schoolSelect').value,
+englishLevel: document.getElementById('levelSelect').value,
+createdAt: firebase.firestore.FieldValue.serverTimestamp()
+};
+
+try {
+await db.collection("emp_students").add(studentData);
+alert("تم التسجيل بنجاح!");
+document.getElementById('studentForm').reset();
+} catch (error) {
+console.error("خطأ أثناء الحفظ: ", error);
+alert("حدث خطأ أثناء الإرسال، حاول مرة أخرى.");
+} finally {
+submitBtn.innerText = "تأكيد وإرسال البيانات";
+submitBtn.disabled = false;
+}
 });
-});
-
-// دوال التحكم في نافذة الإدارة المنبثقة
-function openAdminModal(e) {
-e.preventDefault();
-document.getElementById('adminModal').classList.add('show');
-}
-
-function closeAdminModal() {
-const modal = document.getElementById('adminModal');
-modal.classList.remove('show');
-// إعادة تعيين محتوى النافذة للحالة الأولى عند الإغلاق
-setTimeout(() => {
-document.getElementById('mTitle').innerText = "تنبيه أمني 🔐";
-document.getElementById('mText').style.display = "block";
-document.getElementById('adminPass').style.display = "none";
-document.getElementById('adminPass').value = "";
-document.getElementById('actionBtn').setAttribute('onclick', 'proceedToPassword()');
-}, 300);
-}
-
-function proceedToPassword() {
-// الانتقال للمرحلة الثانية: طلب كلمة السر داخل نفس النافذة
-document.getElementById('mTitle').innerText = "كلمة المرور المطلوبة";
-document.getElementById('mText').style.display = "none";
-
-const passInput = document.getElementById('adminPass');
-passInput.style.display = "block";
-passInput.focus();
-// تغيير وظيفة زر المتابعة ليقوم بفحص الكلمة المكتوبة
-document.getElementById('actionBtn').setAttribute('onclick', 'validateAdminPassword()');
-}
-
-function validateAdminPassword() {
-const enteredPass = document.getElementById('adminPass').value;
-if (enteredPass === "Mus3ffa") {
-window.location.href = "admin.html"; // الدخول الفوري للوحة التحكم
-} else {
-alert("عذراً، كلمة المرور خاطئة! الوصول مرفوض.");
-closeAdminModal();
-}
-}
 </script>
-
 </body>
 </html>
+
+
+Mail Delivery Subsystem <mailer-daemon@googlemail.com‏>
+4:29 م ‎(قبل دقيقتين)‎
+أنا
+
+رمز الخطأ
+لم يتم العثور على العنوان
+تعذَّر تسليم رسالتك إلى englishmastreprogram@gmail.com نظرًا لأنه لم يتم العثور على العنوان، أو لا يمكن لذلك العنوان استلام الرسائل الإلكترونية.
+مزيد من المعلومات
+كان الرد:
+550 5.1.1 The email account that you tried to reach does not exist. Please try double-checking the recipient's email address for typos or unnecessary spaces. For more information, go to https://support.google.com/mail/?p=NoSuchUser 4fb4d7f45d1cf-6a9b58e1b06sor687878a12.14 - gsmtp
 
