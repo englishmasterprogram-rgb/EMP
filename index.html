@@ -30,7 +30,7 @@ align-items: center;
 padding: 20px;
 }
 
-/* تأثير الـ Fade In للتنقل والسلاسة */
+/* تأثير Fade In عند فتح الصفحة */
 .fade-in {
 animation: fadeIn 0.6s ease-in-out forwards;
 }
@@ -110,7 +110,7 @@ background: var(--dark-blue);
 
 <div class="form-container fade-in">
 <div class="form-header">
-<h2>تسجيل طالب جديد (EMP)</h2>
+<h2>تسجيل طالب جديد - EMP</h2>
 <p>أدخل بيانات الطالب للالتحاق بالبرنامج</p>
 </div>
 
@@ -141,9 +141,14 @@ background: var(--dark-blue);
 </div>
 
 <div class="form-group">
+<label>رقم الترحيل</label>
+<input type="tel" id="transportPhone" placeholder="اختياري">
+</div>
+
+<div class="form-group">
 <label>المدرسة الحالية</label>
 <select id="schoolSelect" required>
-<option value="" disabled selected>حدد المدرسة...</option>
+<option value="" disabled selected>حدد المدرسة الحالية...</option>
 <option value="مدرسة جيل الإبداع والتميز">مدرسة جيل الإبداع والتميز</option>
 <option value="مدرسة أخرى">مدرسة أخرى</option>
 </select>
@@ -155,7 +160,7 @@ background: var(--dark-blue);
 <option value="" disabled selected>حدد المستوى...</option>
 <option value="مبتدئ">مبتدئ</option>
 <option value="متوسط">متوسط</option>
-
+<option value="جيد جداً">جيد جداً</option>
 <option value="ممتاز">ممتاز</option>
 </select>
 </div>
@@ -164,26 +169,27 @@ background: var(--dark-blue);
 </form>
 </div>
 
-<!-- مكتبات Firebase -->
+<!-- مكتبات Firebase SDK (Compat v9) -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
 <script>
-// ⚠️ استبدل هذه الإعدادات ببيانات مشروعك من Firebase Console
+// مفاتيح مشروع Firebase الخاص بك
 const firebaseConfig = {
-apiKey: "YOUR_API_KEY",
-authDomain: "YOUR_PROJECT.firebaseapp.com",
-projectId: "YOUR_PROJECT_ID",
-storageBucket: "YOUR_PROJECT.appspot.com",
-messagingSenderId: "YOUR_SENDER_ID",
-appId: "YOUR_APP_ID"
+apiKey: "AIzaSyBKNYzhD6yJqtBywDSGHE0-RgvJZ4Cw74I",
+authDomain: "english-mastery-program.firebaseapp.com",
+projectId: "english-mastery-program",
+storageBucket: "english-mastery-program.firebasestorage.app",
+messagingSenderId: "351145575770",
+appId: "1:351145575770:web:49c375d96b1563b3385f63",
+measurementId: "G-CFNS5HZXNW"
 };
 
-// تهيئة Firebase
+// تهيئة Firebase و Firestore
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// التعامل مع إرسال النموذج
+// إرسال البيانات لقاعدة البيانات عند الضغط على الزر
 document.getElementById('studentForm').addEventListener('submit', async (e) => {
 e.preventDefault();
 
@@ -192,11 +198,12 @@ submitBtn.innerText = "جاري الإرسال...";
 submitBtn.disabled = true;
 
 const studentData = {
-fullName: document.getElementById('fullName').value,
-age: document.getElementById('age').value,
-borderNumber: document.getElementById('borderNumber').value,
-address: document.getElementById('address').value,
-parentPhone: document.getElementById('parentPhone').value,
+fullName: document.getElementById('fullName').value.trim(),
+age: document.getElementById('age').value.trim(),
+borderNumber: document.getElementById('borderNumber').value.trim(),
+address: document.getElementById('address').value.trim(),
+parentPhone: document.getElementById('parentPhone').value.trim(),
+transportPhone: document.getElementById('transportPhone').value.trim(),
 school: document.getElementById('schoolSelect').value,
 englishLevel: document.getElementById('levelSelect').value,
 createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -204,11 +211,11 @@ createdAt: firebase.firestore.FieldValue.serverTimestamp()
 
 try {
 await db.collection("emp_students").add(studentData);
-alert("تم التسجيل بنجاح!");
+alert("تم تسجيل الطالب بنجاح!");
 document.getElementById('studentForm').reset();
 } catch (error) {
 console.error("خطأ أثناء الحفظ: ", error);
-alert("حدث خطأ أثناء الإرسال، حاول مرة أخرى.");
+alert("حدث خطأ أثناء الإرسال، يُرجى التأكد من تفعيل Firestore Database في Firebase.");
 } finally {
 submitBtn.innerText = "تأكيد وإرسال البيانات";
 submitBtn.disabled = false;
@@ -217,16 +224,4 @@ submitBtn.disabled = false;
 </script>
 </body>
 </html>
-
-
-Mail Delivery Subsystem <mailer-daemon@googlemail.com‏>
-4:29 م ‎(قبل دقيقتين)‎
-أنا
-
-رمز الخطأ
-لم يتم العثور على العنوان
-تعذَّر تسليم رسالتك إلى englishmastreprogram@gmail.com نظرًا لأنه لم يتم العثور على العنوان، أو لا يمكن لذلك العنوان استلام الرسائل الإلكترونية.
-مزيد من المعلومات
-كان الرد:
-550 5.1.1 The email account that you tried to reach does not exist. Please try double-checking the recipient's email address for typos or unnecessary spaces. For more information, go to https://support.google.com/mail/?p=NoSuchUser 4fb4d7f45d1cf-6a9b58e1b06sor687878a12.14 - gsmtp
 
