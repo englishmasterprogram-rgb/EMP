@@ -3,15 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تسجيل طالب جديد - EMP</title>
+<title>ENGLISH MASTER PROGRAM (EMP)</title>
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root {
 --main-blue: #0a70f3;
 --dark-blue: #054c9e;
---bg-color: #f0f2f5;
+--bg-gradient: linear-gradient(135deg, #0a70f3 0%, #054c9e 100%);
 --white: #ffffff;
---card-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+--card-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+--text-dark: #2c3e50;
 }
 
 * {
@@ -22,7 +23,8 @@ font-family: 'Cairo', sans-serif;
 }
 
 body {
-background-color: var(--bg-color);
+background: #f4f7fe;
+color: var(--text-dark);
 min-height: 100vh;
 display: flex;
 justify-content: center;
@@ -30,132 +32,210 @@ align-items: center;
 padding: 20px;
 }
 
-/* تأثير Fade In عند فتح الصفحة */
-.fade-in {
-animation: fadeIn 0.6s ease-in-out forwards;
+/* تأثيرات الـ Fade والتنقل السلس */
+.view-section {
+display: none;
+width: 100%;
+max-width: 480px;
+animation: fadeIn 0.4s ease-in-out forwards;
+}
+
+.view-section.active {
+display: block;
 }
 
 @keyframes fadeIn {
-from { opacity: 0; transform: translateY(15px); }
+from { opacity: 0; transform: translateY(12px); }
 to { opacity: 1; transform: translateY(0); }
 }
 
-.form-container {
+/* البطاقة الرئيسية */
+.main-card {
 background: var(--white);
-width: 100%;
-max-width: 500px;
-padding: 30px;
-border-radius: 16px;
+border-radius: 20px;
+padding: 30px 25px;
 box-shadow: var(--card-shadow);
-border-top: 5px solid var(--main-blue);
-}
-
-.form-header {
+border-top: 6px solid var(--main-blue);
 text-align: center;
-margin-bottom: 20px;
+position: relative;
 }
 
-.form-header h2 {
-color: var(--dark-blue);
+.brand-header {
+margin-bottom: 25px;
+}
+
+.brand-logo {
+font-size: 2.2rem;
 font-weight: 800;
-margin-bottom: 5px;
+color: var(--main-blue);
+letter-spacing: 1px;
 }
 
+.brand-subtitle {
+font-size: 0.95rem;
+color: #666;
+margin-top: 4px;
+font-weight: 600;
+}
+
+/* الأزرار والقائمة الرئيسية */
+.menu-buttons {
+display: flex;
+flex-direction: column;
+gap: 12px;
+}
+
+.btn-menu {
+display: flex;
+align-items: center;
+justify-content: space-between;
+background: #f8faee;
+background-color: #f5f8ff;
+border: 2px solid #e1e9ff;
+padding: 16px 20px;
+border-radius: 12px;
+font-size: 1rem;
+font-weight: 700;
+color: var(--dark-blue);
+cursor: pointer;
+transition: all 0.3s ease;
+text-decoration: none;
+}
+
+.btn-menu:hover {
+background: var(--main-blue);
+color: var(--white);
+border-color: var(--main-blue);
+transform: translateY(-2px);
+}
+
+/* النماذج والإدخالات */
 .form-group {
-margin-bottom: 15px;
 text-align: right;
+margin-bottom: 15px;
 }
 
 .form-group label {
 display: block;
-margin-bottom: 5px;
-font-weight: 600;
-color: #333;
+margin-bottom: 6px;
+font-weight: 700;
+font-size: 0.9rem;
 }
 
 .form-group input, .form-group select {
 width: 100%;
 padding: 12px;
-border: 2px solid #e0e6ed;
-border-radius: 8px;
+border: 2px solid #e2e8f0;
+border-radius: 10px;
 font-size: 0.95rem;
 outline: none;
-transition: border-color 0.3s;
+transition: 0.3s;
 }
 
 .form-group input:focus, .form-group select:focus {
 border-color: var(--main-blue);
 }
 
-.btn-submit {
+.btn-action {
 width: 100%;
 background: var(--main-blue);
 color: white;
 border: none;
 padding: 14px;
-border-radius: 8px;
+border-radius: 10px;
 font-weight: 700;
 font-size: 1rem;
 cursor: pointer;
-transition: background 0.3s;
 margin-top: 10px;
+transition: 0.3s;
 }
 
-.btn-submit:hover {
+.btn-action:hover {
 background: var(--dark-blue);
+}
+
+.btn-back {
+background: none;
+border: none;
+color: #777;
+font-weight: 700;
+cursor: pointer;
+margin-top: 15px;
+display: inline-block;
+}
+
+/* زر لوحة الإدارة المخفي (النقر المزدوج على الشعار) */
+.secret-admin-trigger {
+cursor: pointer;
+user-select: none;
 }
 </style>
 </head>
 <body>
 
-<div class="form-container fade-in">
-<div class="form-header">
-<h2>تسجيل طالب جديد - EMP</h2>
-<p>أدخل بيانات الطالب للالتحاق بالبرنامج</p>
+<div class="main-card">
+
+<!-- 1. الشاشة الرئيسية (القائمة) -->
+<div id="mainView" class="view-section active">
+<div class="brand-header">
+<h1 class="brand-logo secret-admin-trigger" ondblclick="openAdminModal()" title="انقر مرتين للإدارة">EMP</h1>
+<p class="brand-subtitle">ENGLISH MASTER PROGRAM</p>
+</div>
+
+<div class="menu-buttons">
+<button class="btn-menu" onclick="switchView('registerView')">
+<span>📝 تسجيل طالب جديد</span> ⬅
+</button>
+<button class="btn-menu" onclick="switchView('trackView')">
+<span>📊 متابعة مستوى الطالب الأكاديمي</span> ⬅
+</button>
+<button class="btn-menu" onclick="switchView('aboutView')">
+<span>🏫 نبذة عن المدرسة والبرنامج</span> ⬅
+</button>
+<button class="btn-menu" onclick="switchView('contactView')">
+<span>📞 تواصل معنا</span> ⬅
+</button>
+</div>
+</div>
+
+<!-- 2. شاشة تسجيل طالب جديد -->
+<div id="registerView" class="view-section">
+<div class="brand-header">
+<h2>تسجيل طالب جديد</h2>
+<p class="brand-subtitle">أدخل البيانات للالتحاق بالبرنامج</p>
 </div>
 
 <form id="studentForm">
 <div class="form-group">
 <label>الاسم رباعي</label>
-<input type="text" id="fullName" required placeholder="مثال: محمد أحمد علي">
+<input type="text" id="fullName" required placeholder="اسم الطالب">
 </div>
-
 <div class="form-group">
 <label>العمر</label>
-<input type="number" id="age" required placeholder="أدخل العمر">
+<input type="number" id="age" required placeholder="العمر">
 </div>
-
 <div class="form-group">
 <label>رقم حدود الطالب</label>
-<input type="text" id="borderNumber" required placeholder="أدخل رقم الحدود">
+<input type="text" id="borderNumber" required placeholder="رقم الحدود">
 </div>
-
 <div class="form-group">
 <label>السكن الحالي</label>
-<input type="text" id="address" required placeholder="المدينة / الحي">
+<input type="text" id="address" required placeholder="الحي / المدينة">
 </div>
-
 <div class="form-group">
 <label>رقم ولي الأمر</label>
 <input type="tel" id="parentPhone" required placeholder="05xxxxxxxx">
 </div>
-
-<div class="form-group">
-<label>رقم الترحيل</label>
-<input type="tel" id="transportPhone" placeholder="اختياري">
-</div>
-
 <div class="form-group">
 <label>المدرسة الحالية</label>
 <select id="schoolSelect" required>
-<option value="" disabled selected>حدد المدرسة الحالية...</option>
+<option value="" disabled selected>حدد المدرسة...</option>
 <option value="مدرسة جيل الإبداع والتميز">مدرسة جيل الإبداع والتميز</option>
 <option value="مدرسة أخرى">مدرسة أخرى</option>
 </select>
 </div>
-
 <div class="form-group">
-<label>مستوى الطالب في اللغة الإنجليزية</label>
+<label>مستوى الطالب في الإنجليزية</label>
 <select id="levelSelect" required>
 <option value="" disabled selected>حدد المستوى...</option>
 <option value="مبتدئ">مبتدئ</option>
@@ -165,16 +245,56 @@ background: var(--dark-blue);
 </select>
 </div>
 
-<button type="submit" class="btn-submit" id="submitBtn">تأكيد وإرسال البيانات</button>
+<button type="submit" class="btn-action" id="submitBtn">تأكيد وإرسال البيانات</button>
 </form>
+<button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
 </div>
 
-<!-- مكتبات Firebase SDK (Compat v9) -->
+<!-- 3. شاشة الاستعلام ومتابعة المستويات -->
+<div id="trackView" class="view-section">
+<div class="brand-header">
+<h2>متابعة مستوى الطالب</h2>
+<p class="brand-subtitle">أدخل رقم الحدود للاستعلام</p>
+</div>
+<div class="form-group">
+<input type="text" id="searchBorder" placeholder="أدخل رقم حدود الطالب">
+</div>
+<button class="btn-action" onclick="searchStudent()">بحث واستعلام</button>
+<div id="searchResult" style="margin-top: 15px; font-weight:700;"></div>
+<button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
+</div>
+
+<!-- 4. شاشة نبذة عن المدرسة -->
+<div id="aboutView" class="view-section">
+<div class="brand-header">
+<h2>عن برنامج EMP</h2>
+</div>
+<p style="text-align: right; line-height: 1.6; font-weight:600;">
+برنامج ENGLISH MASTER PROGRAM يتبع إدارياً لمدارس جيل الإبداع والتميز، ويهدف لتطوير مهارات الطلاب في اللغة الإنجليزية عبر مناهج تفاعلية وحصص إضافية.
+</p>
+<button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
+</div>
+
+<!-- 5. شاشة تواصل معنا -->
+<div id="contactView" class="view-section">
+<div class="brand-header">
+<h2>تواصل معنا</h2>
+</div>
+<div class="menu-buttons">
+<a href="https://wa.me/" target="_blank" class="btn-menu">💬 مجموعة الواتساب الرسمية</a>
+<a href="#" target="_blank" class="btn-menu">🎵 حساب تيك توك</a>
+</div>
+<button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
+</div>
+
+</div>
+
+<!-- مكتبات Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
 <script>
-// مفاتيح مشروع Firebase الخاص بك
+// إعدادات Firebase الخاصة بمشروعك
 const firebaseConfig = {
 apiKey: "AIzaSyBKNYzhD6yJqtBywDSGHE0-RgvJZ4Cw74I",
 authDomain: "english-mastery-program.firebaseapp.com",
@@ -185,14 +305,20 @@ appId: "1:351145575770:web:49c375d96b1563b3385f63",
 measurementId: "G-CFNS5HZXNW"
 };
 
-// تهيئة Firebase و Firestore
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// إرسال البيانات لقاعدة البيانات عند الضغط على الزر
+// التنقل بين الشاشات بتأثير الـ Fade
+function switchView(viewId) {
+document.querySelectorAll('.view-section').forEach(view => {
+view.classList.remove('active');
+});
+document.getElementById(viewId).classList.add('active');
+}
+
+// إرسال بيانات الطالب إلى Firebase
 document.getElementById('studentForm').addEventListener('submit', async (e) => {
 e.preventDefault();
-
 const submitBtn = document.getElementById('submitBtn');
 submitBtn.innerText = "جاري الإرسال...";
 submitBtn.disabled = true;
@@ -203,7 +329,6 @@ age: document.getElementById('age').value.trim(),
 borderNumber: document.getElementById('borderNumber').value.trim(),
 address: document.getElementById('address').value.trim(),
 parentPhone: document.getElementById('parentPhone').value.trim(),
-transportPhone: document.getElementById('transportPhone').value.trim(),
 school: document.getElementById('schoolSelect').value,
 englishLevel: document.getElementById('levelSelect').value,
 createdAt: firebase.firestore.FieldValue.serverTimestamp()
@@ -213,14 +338,44 @@ try {
 await db.collection("emp_students").add(studentData);
 alert("تم تسجيل الطالب بنجاح!");
 document.getElementById('studentForm').reset();
+switchView('mainView');
 } catch (error) {
-console.error("خطأ أثناء الحفظ: ", error);
-alert("حدث خطأ أثناء الإرسال، يُرجى التأكد من تفعيل Firestore Database في Firebase.");
+console.error("خطأ:", error);
+alert("حدث خطأ أثناء حفظ البيانات.");
 } finally {
 submitBtn.innerText = "تأكيد وإرسال البيانات";
 submitBtn.disabled = false;
 }
 });
+
+// الاستعلام عن طالب
+async function searchStudent() {
+const borderNo = document.getElementById('searchBorder').value.trim();
+const resultDiv = document.getElementById('searchResult');
+if(!borderNo) return alert("أدخل رقم الحدود أولاً");
+
+resultDiv.innerText = "جاري البحث...";
+const snapshot = await db.collection("emp_students").where("borderNumber", "==", borderNo).get();
+
+if(snapshot.empty) {
+resultDiv.innerHTML = "<span style='color:red;'>لم يتم العثور على طالب بهذا الرقم</span>";
+} else {
+snapshot.forEach(doc => {
+const data = doc.data();
+resultDiv.innerHTML = `<span style='color:green;'>الطالب: ${data.fullName} <br> المستوى: ${data.englishLevel}</span>`;
+});
+}
+}
+
+// طريقة دخول الإدارة المخفية (انقر مرتين بسرعة على كلمة EMP في الأعلى)
+function openAdminModal() {
+const pass = prompt("أدخل كلمة مرور الإدارة:");
+if(pass === "123456") { // يمكنك تغيير كلمة المرور هنا
+window.location.href = "admin.html";
+} else if(pass) {
+alert("كلمة المرور غير صحيحة!");
+}
+}
 </script>
 </body>
 </html>
