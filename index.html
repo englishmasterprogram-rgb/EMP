@@ -22,7 +22,6 @@ font-family: 'Cairo', sans-serif;
 }
 
 body {
-/* استبدل bg.jpg باسم/رابط صورتك */
 background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0.15)), url('bg.jpg');
 background-size: cover;
 background-position: center;
@@ -65,13 +64,12 @@ from { opacity: 0; transform: scale(0.97) translateY(10px); }
 to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* قسم العنوان والخط الفلسفي بالانعكاس المائي */
+/* قسم العنوان والخط الفلسفي */
 .brand-title-container {
 margin-bottom: 35px;
 position: relative;
 }
 
-/* شعار EMP */
 .brand-title {
 font-family: 'Cinzel', serif, 'Cairo';
 font-size: 3rem;
@@ -83,7 +81,6 @@ line-height: 1;
 text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* نص English Mastery Program بأسلوب فلسفي ذهبي مع انعكاس */
 .brand-subtitle-philosophical {
 font-family: 'Cinzel', serif, 'Cairo';
 font-size: 1.05rem;
@@ -98,7 +95,6 @@ display: inline-block;
 text-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* الانعكاس المائي للعنوان والفرعي */
 .brand-title-container::after {
 content: "EMP\A English Mastery Program";
 white-space: pre;
@@ -118,7 +114,7 @@ color: #000;
 -webkit-text-stroke: 0.8px #d4af37;
 }
 
-/* أزرار iOS الشفافة المائية */
+/* أزرار الشفافة المائية */
 .menu-buttons {
 display: flex;
 flex-direction: column;
@@ -176,13 +172,14 @@ background: rgba(0, 0, 0, 0.5);
 border-color: var(--main-gold);
 }
 
-/* النوافذ المنبثقة الشفافة المائية */
+/* النوافذ المنبثقة */
 .modal-overlay {
 display: none;
 position: fixed;
 top: 0; left: 0; right: 0; bottom: 0;
-background: rgba(0, 0, 0, 0.5);
-backdrop-filter: blur(8px);
+background: rgba(0, 0, 0, 0.55);
+backdrop-filter: blur(10px);
+-webkit-backdrop-filter: blur(10px);
 z-index: 999;
 justify-content: center;
 align-items: center;
@@ -190,15 +187,15 @@ padding: 20px;
 }
 
 .modal-box {
-background: rgba(255, 255, 255, 0.85);
-backdrop-filter: blur(15px);
+background: rgba(255, 255, 255, 0.92);
+backdrop-filter: blur(20px);
 border-radius: 24px;
 padding: 25px;
 width: 100%;
-max-width: 360px;
+max-width: 390px;
 text-align: center;
 box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-border: 1px solid #d4af37;
+border: 1.5px solid #d4af37;
 animation: popIn 0.3s ease;
 }
 
@@ -207,18 +204,18 @@ from { transform: scale(0.85); opacity: 0; }
 to { transform: scale(1); opacity: 1; }
 }
 
-.modal-box h3 { font-size: 1.1rem; color: #8a1f1f; margin-bottom: 8px; font-weight: 800; }
-.modal-box p { font-size: 0.85rem; color: #222; margin-bottom: 15px; font-weight: 700; }
+.modal-box h3 { font-size: 1.2rem; color: #1a1a1a; margin-bottom: 12px; font-weight: 800; }
+.modal-box p { font-size: 0.92rem; color: #222; margin-bottom: 15px; font-weight: 700; line-height: 1.6; text-align: right; }
 .modal-box input {
-width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.7);
+width: 100%; padding: 12px; background: rgba(255, 255, 255, 0.8);
 border: 2px solid #ddd; border-radius: 12px; text-align: center;
 font-size: 1rem; outline: none; margin-bottom: 12px;
 }
 .modal-box input:focus { border-color: #d4af37; }
 
 .modal-actions { display: flex; gap: 10px; }
-.btn-modal { flex: 1; padding: 10px; border-radius: 10px; border: none; font-weight: 800; cursor: pointer; }
-.btn-confirm { background: #1a1a1a; color: #d4af37; }
+.btn-modal { flex: 1; padding: 12px; border-radius: 12px; border: none; font-weight: 800; cursor: pointer; font-size: 0.95rem; }
+.btn-confirm { background: #1a1a1a; color: #d4af37; border: 1px solid #d4af37; }
 .btn-cancel { background: rgba(0, 0, 0, 0.1); color: #333; }
 
 /* الحقول داخل الصفحات */
@@ -234,6 +231,84 @@ width: 100%; background: rgba(0, 0, 0, 0.85); color: #d4af37; border: 1px solid 
 padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-top: 10px;
 }
 .btn-back { background: none; border: none; color: #000; font-weight: 800; cursor: pointer; margin-top: 15px; }
+
+/* خيارات الخيارات الإضافية الذهبية */
+.addon-card-option {
+background: rgba(212, 175, 55, 0.2);
+border: 1.5px solid #d4af37;
+padding: 12px;
+border-radius: 16px;
+margin-bottom: 12px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+cursor: pointer;
+transition: 0.3s;
+}
+.addon-card-option:hover { background: rgba(212, 175, 55, 0.35); }
+.addon-card-option input { width: 20px; height: 20px; accent-color: #d4af37; cursor: pointer; }
+.addon-text { text-align: right; font-size: 0.88rem; font-weight: 800; color: #000; }
+
+/* شريط التنبيه العاجل */
+.urgent-banner {
+background: rgba(212, 175, 55, 0.3);
+border: 1px solid #d4af37;
+color: #000;
+padding: 10px;
+border-radius: 12px;
+font-size: 0.85rem;
+font-weight: 900;
+margin-bottom: 15px;
+text-align: center;
+box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+/* حاوية لائحة الشروط والقوانين */
+.rules-card {
+background: rgba(255, 255, 255, 0.4);
+backdrop-filter: blur(5px);
+border: 1.5px solid rgba(212, 175, 55, 0.8);
+border-radius: 18px;
+padding: 15px;
+margin-top: 15px;
+text-align: right;
+}
+.rules-card h3 {
+font-size: 1.05rem;
+color: #000;
+margin-bottom: 10px;
+border-bottom: 1px solid #d4af37;
+padding-bottom: 5px;
+display: flex;
+align-items: center;
+gap: 6px;
+}
+.rules-list {
+list-style-type: none;
+padding: 0;
+}
+.rules-list li {
+font-size: 0.85rem;
+font-weight: 700;
+color: #111;
+margin-bottom: 8px;
+line-height: 1.5;
+position: relative;
+padding-right: 18px;
+}
+.rules-list li::before {
+content: "•";
+color: #d4af37;
+font-weight: 900;
+font-size: 1.2rem;
+position: absolute;
+right: 0;
+top: -2px;
+}
+.rules-list li.strict {
+color: #900000;
+font-weight: 800;
+}
 </style>
 </head>
 <body>
@@ -255,7 +330,7 @@ padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-to
 <span>📊 متابعة مستوى الطالب الأكاديمي</span> ⬅
 </button>
 <button class="btn-glass" onclick="switchView('aboutView')">
-<span>🏫 نبذة عن المدرسة والبرنامج</span> ⬅
+<span>🏫 نبذة عن المدرسة والقوانين</span> ⬅
 </button>
 <button class="btn-glass" onclick="switchView('contactView')">
 <span>📞 تواصل معنا</span> ⬅
@@ -274,12 +349,45 @@ padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-to
 <h2 style="font-size:1.5rem; color:#000;">تسجيل طالب جديد</h2>
 </div>
 
+<!-- شريط تنبيه الاستعجال -->
+<div class="urgent-banner">
+⚠️ يُرجى التسجيل والدفع عاجلاً لضمان اعتماد المقعد وحجزه!
+</div>
+
 <form id="studentForm">
+<div class="form-group">
+<label>فئة التسجيل</label>
+<select id="categorySelect" required onchange="handleCategoryChange()">
+<option value="" disabled selected>اختر الفئة العمريّة...</option>
+<option value="kids">التسجيل للكيدز (أطفال: 4 - 7 سنوات)</option>
+<option value="medium">التسجيل للفئة المتوسطة (8 - 21 سنة)</option>
+<option value="adults">التسجيل للكبار (أكثر من 21 سنة)</option>
+</select>
+</div>
+
+<!-- خيار باقة التسجيل EMP VIP -->
+<div class="addon-card-option" onclick="toggleVipCheckbox()">
+<div class="addon-text">
+🌟 <b>الترقية لباقة EMP VIP</b><br>
+<span style="font-size:0.75rem; font-weight:700; color:#333;">حصة أونلاين أسبوعياً + اهتمام ومتابعة خاصة (ضعف المبلغ)</span>
+</div>
+<input type="checkbox" id="vipPackageCheck" onchange="handleOptionToggle()" onclick="event.stopPropagation()">
+</div>
+
+<!-- خيار خدمة الترحيل -->
+<div class="addon-card-option" onclick="toggleTransportCheckbox()">
+<div class="addon-text">
+🚌 <b>إضافة خدمة الترحيل (النقل)</b><br>
+<span style="font-size:0.75rem; font-weight:700; color:#333;">50 ريال شهرياً (يتم توفيرها فقط للطلاب المسجلين المعتمدين)</span>
+</div>
+<input type="checkbox" id="transportCheck" onchange="handleOptionToggle()" onclick="event.stopPropagation()">
+</div>
+
 <div class="form-group"><label>الاسم رباعي</label><input type="text" id="fullName" required placeholder="اسم الطالب"></div>
 <div class="form-group"><label>العمر</label><input type="number" id="age" required placeholder="العمر"></div>
 <div class="form-group"><label>رقم حدود الطالب</label><input type="text" id="borderNumber" required placeholder="رقم الحدود"></div>
 <div class="form-group"><label>السكن الحالي</label><input type="text" id="address" required placeholder="الحي / المدينة"></div>
-<div class="form-group"><label>رقم ولي الأمر</label><input type="tel" id="parentPhone" required placeholder="05xxxxxxxx"></div>
+<div class="form-group"><label>رقم ولي الأمر / التواصل</label><input type="tel" id="parentPhone" required placeholder="05xxxxxxxx"></div>
 <div class="form-group">
 <label>المدرسة الحالية</label>
 <select id="schoolSelect" required>
@@ -312,12 +420,27 @@ padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-to
 <button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
 </div>
 
-<!-- 4. نبذة عن البرنامج -->
+<!-- 4. نبذة عن البرنامج والقوانين واللوائح -->
 <div id="aboutView" class="view-section">
-<div class="brand-title-container"><h2 style="font-size:1.5rem; color:#000;">عن البرنامج</h2></div>
-<p style="text-align: right; line-height: 1.6; font-weight:700; color:#000;">
-برنامج ENGLISH MASTER PROGRAM يتبع إدارياً لمدارس جيل الإبداع والتميز، ويهدف لتطوير مهارات الطلاب في اللغة الإنجليزية عبر مناهج تفاعلية وحصص إضافية.
+<div class="brand-title-container"><h2 style="font-size:1.5rem; color:#000;">عن البرنامج والقوانين</h2></div>
+<!-- النص الأساسي كما طلبته بالكامل -->
+<p style="text-align: right; line-height: 1.6; font-weight:800; color:#000; margin-bottom: 12px; font-size: 0.95rem;">
+البرنامج يتبع لمدرسة جيل الإبداع والتميز مع الأستاذ مصطفى والأستاذ مصعب.
 </p>
+
+<!-- لائحة الشروط والقوانين -->
+<div class="rules-card">
+<h3>📋 لائحة الانضباط والشروط المدرسية</h3>
+<ul class="rules-list">
+<li class="strict"><b>حرمان الحصة:</b> يُحرم الطالب تماماً من المحاضرة في حال البدء بالثرثرة أو الحديث بدون إذن أثناء الشرح، ولا يتم إعادة الدرس له نهائياً.</li>
+<li class="strict"><b>الفصل النهائي:</b> يتم طرد واستبعاد الطالب نهائياً من البرنامج في حال بدر منه أي تصرف أو أسلوب غير تربوي.</li>
+<li><b>الالتزام بالوقت:</b> الحضور والتواجد قبل بدء المحاضرة بـ 5 دقائق، والتأخر التكرر ينقص من تقييم الانضباط.</li>
+<li><b>الأدوات المدرسية:</b> إحضار جميع الكتب والدفاتر والأدوات المطلوبة لكل حصة بصورة منتظمة.</li>
+<li><b>المحافظة على الممتلكات:</b> يلتزم الطالب بالمحافظة على أثاث وأجهزة القاعات المدرسية وسيارات الترحيل.</li>
+<li><b>الاحترام المتبادل:</b> الالتزام بالأخلاق الحسنة والاحترام الكامل للمعلمين والزملاء والعمل بروح الفريق.</li>
+</ul>
+</div>
+
 <button class="btn-back" onclick="switchView('mainView')">🔙 العودة للقائمة الرئيسية</button>
 </div>
 
@@ -333,11 +456,22 @@ padding: 12px; border-radius: 12px; font-weight: 800; cursor: pointer; margin-to
 
 </div>
 
+<!-- نافذة إشعار تفاصيل الفئة والرسوم والتنبيهات -->
+<div class="modal-overlay" id="categoryInfoModal">
+<div class="modal-box">
+<h3 id="infoModalTitle">📌 تفاصيل التسجيل</h3>
+<p id="infoModalBody"></p>
+<div class="modal-actions">
+<button class="btn-modal btn-confirm" onclick="closeCategoryModal()">موافق ومتابعة</button>
+</div>
+</div>
+</div>
+
 <!-- نافذة تسجيل دخول الإدارة -->
 <div class="modal-overlay" id="adminModal">
 <div class="modal-box">
 <h3>⚠️ تنبيه إداري</h3>
-<p>هذه الصفحة غير مسموح بالدخول إليها إلا لمدراء الإدارة فقط.</p>
+<p style="text-align:center;">هذه الصفحة غير مسموح بالدخول إليها إلا لمدراء الإدارة فقط.</p>
 <input type="password" id="adminPasswordInput" placeholder="أدخل كلمة المرور">
 <div class="modal-actions">
 <button class="btn-modal btn-confirm" onclick="verifyAdminPassword()">دخول</button>
@@ -369,7 +503,98 @@ document.querySelectorAll('.view-section').forEach(view => view.classList.remove
 document.getElementById(viewId).classList.add('active');
 }
 
-/* حماية الإدارة بكلمة المرور Mus3ab */
+/* التحكم بالخيارات الإضافية والتنبيهات المنبثقة */
+function handleCategoryChange() {
+showUnifiedInfoModal();
+}
+
+function toggleVipCheckbox() {
+const chk = document.getElementById('vipPackageCheck');
+chk.checked = !chk.checked;
+showUnifiedInfoModal();
+}
+
+function toggleTransportCheckbox() {
+const chk = document.getElementById('transportCheck');
+chk.checked = !chk.checked;
+showUnifiedInfoModal();
+}
+
+function handleOptionToggle() {
+showUnifiedInfoModal();
+}
+
+function showUnifiedInfoModal() {
+const category = document.getElementById('categorySelect').value;
+if(!category) return;
+
+const isVip = document.getElementById('vipPackageCheck').checked;
+const isTransport = document.getElementById('transportCheck').checked;
+
+const modal = document.getElementById('categoryInfoModal');
+const title = document.getElementById('infoModalTitle');
+const body = document.getElementById('infoModalBody');
+
+let basePrice = 100;
+let dayTime = "كل يوم سبت من الساعة 4:00 إلى 6:00 مساءً";
+let catName = "";
+
+if (category === 'kids') {
+catName = "👶 التسجيل للكيدز (4 - 7 سنوات)";
+basePrice = 100;
+dayTime = "كل يوم سبت من الساعة 4:00 إلى 6:00 مساءً";
+} else if (category === 'medium') {
+catName = "🎓 التسجيل للفئة المتوسطة (8 - 21 سنة)";
+basePrice = 100;
+dayTime = "كل يوم سبت من الساعة 4:00 إلى 6:00 مساءً";
+} else if (category === 'adults') {
+catName = "👔 التسجيل للكبار (أكثر من 21 سنة)";
+basePrice = 150;
+dayTime = "كل يوم الأربعاء من الساعة 4:00 إلى 6:00 مساءً";
+}
+
+const finalRegPrice = isVip ? basePrice * 2 : basePrice;
+
+title.innerText = isVip ? `🌟 ${catName} (باقة EMP VIP)` : `📌 ${catName}`;
+
+let htmlContent = `
+💵 <b>رسوم التسجيل:</b> ${finalRegPrice} ريال سعودي ${isVip ? '(باقة VIP)' : ''}<br>
+⏰ <b>المحاضرات الأساسية:</b> ${dayTime}.<br>
+`;
+
+if (isVip) {
+htmlContent += `
+<hr style="margin:8px 0; border:0; border-top:1px dashed #d4af37;">
+🌟 <b>مميزات باقة EMP VIP الحصرية:</b><br>
+💻 <b>حصة أونلاين أسبوعياً:</b> كل يوم جمعة من 4:00 إلى 5:00 مساءً.<br>
+⭐ معاملة ومتابعة خاصة واهتمام فردي للطالب.<br>
+📑 أوراق عمل وتطبيقات تفاعلية مكثفة.<br>
+🗣️ ممارسة حيوية ومباشرة للغة الإنجليزية.<br>
+`;
+}
+
+if (isTransport) {
+htmlContent += `
+<hr style="margin:8px 0; border:0; border-top:1px dashed #d4af37;">
+🚌 <b>خدمة الترحيل (النقل):</b> 50 ريال شهرياً.<br>
+🚨 <i>(تنويه هام: يتم توفير خدمة الترحيل فقط للطلاب الذين تم اعتماد تسجيلهم رسمياً)</i>.<br>
+`;
+}
+
+htmlContent += `
+<hr style="margin:8px 0; border:0; border-top:1px dashed #d4af37;">
+⚡ <b>ملاحظة هامة:</b> يُرجى الإسراع بالتسجيل والدفع عاجلاً لضمان حجز واعتماد المقعد.
+`;
+
+body.innerHTML = htmlContent;
+modal.style.display = 'flex';
+}
+
+function closeCategoryModal() {
+document.getElementById('categoryInfoModal').style.display = 'none';
+}
+
+/* حماية الإدارة */
 function showAdminAuthModal() {
 document.getElementById('adminModal').style.display = 'flex';
 document.getElementById('adminPasswordInput').focus();
@@ -396,7 +621,20 @@ const submitBtn = document.getElementById('submitBtn');
 submitBtn.innerText = "جاري الإرسال...";
 submitBtn.disabled = true;
 
+const categoryMap = {
+'kids': 'الكيدز',
+'medium': 'الفئة المتوسطة',
+'adults': 'الكبار'
+};
+
+const selectedCategoryKey = document.getElementById('categorySelect').value;
+const isVipSelected = document.getElementById('vipPackageCheck').checked;
+const isTransportSelected = document.getElementById('transportCheck').checked;
+
 const studentData = {
+category: categoryMap[selectedCategoryKey] || selectedCategoryKey,
+packageType: isVipSelected ? "EMP VIP (أونلاين + متابعة خاصة)" : "عادي",
+transportService: isTransportSelected ? "نعم (50 ريال شهرياً)" : "لا",
 fullName: document.getElementById('fullName').value.trim(),
 age: document.getElementById('age').value.trim(),
 borderNumber: document.getElementById('borderNumber').value.trim(),
@@ -409,8 +647,10 @@ createdAt: firebase.firestore.FieldValue.serverTimestamp()
 
 try {
 await db.collection("emp_students").add(studentData);
-alert("تم تسجيل الطالب بنجاح!");
+alert("تم تسجيل الطالب بنجاح! يُرجى إكمال عملية الدفع عاجلاً لضمان المقعد.");
 document.getElementById('studentForm').reset();
+document.getElementById('vipPackageCheck').checked = false;
+document.getElementById('transportCheck').checked = false;
 switchView('mainView');
 } catch (error) {
 console.error(error);
@@ -428,6 +668,7 @@ const resultDiv = document.getElementById('searchResult');
 if(!borderNo) return alert("أدخل رقم الحدود أولاً");
 
 resultDiv.innerText = "جاري البحث...";
+try {
 const snapshot = await db.collection("emp_students").where("borderNumber", "==", borderNo).get();
 
 if(snapshot.empty) {
@@ -435,8 +676,19 @@ resultDiv.innerHTML = "<span style='color:red;'>لم يتم العثور على 
 } else {
 snapshot.forEach(doc => {
 const data = doc.data();
-resultDiv.innerHTML = `<div style='background:rgba(255,255,255,0.7); padding:12px; border-radius:10px; color:#000;'>الطالب: ${data.fullName}<br>المستوى: ${data.englishLevel}</div>`;
+resultDiv.innerHTML = `
+<div style='background:rgba(255,255,255,0.7); padding:12px; border-radius:10px; color:#000; text-align:right;'>
+<b>الطالب:</b> ${data.fullName}<br>
+<b>الفئة:</b> ${data.category || 'غير محدد'}<br>
+<b>نوع الباقة:</b> ${data.packageType || 'عادي'}<br>
+<b>خدمة الترحيل:</b> ${data.transportService || 'لا'}<br>
+<b>المستوى:</b> ${data.englishLevel}
+</div>`;
 });
+}
+} catch (err) {
+console.error(err);
+resultDiv.innerHTML = "<span style='color:red;'>حدث خطأ أثناء الاستعلام</span>";
 }
 }
 </script>
