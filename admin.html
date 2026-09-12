@@ -3,126 +3,351 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>لوحة تحكم الإدارة - EMP</title>
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@500;700;900&display=swap" rel="stylesheet">
+<title>لوحة إدارة البرنامج - EMP</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
-body { background: linear-gradient(135deg, #e0e5ec, #b8c6db); min-height: 100vh; padding: 20px; }
-
-.admin-container {
-width: 100%; max-width: 700px; margin: 0 auto;
-background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 30px; padding: 30px 20px;
-box-shadow: 0 25px 50px rgba(0,0,0,0.1); text-align: center;
+:root {
+--main-gold: #d4af37;
+--glass-border: rgba(255, 255, 255, 0.25);
+--glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
 }
 
-h1 { color: #111; font-weight: 900; margin-bottom: 25px; -webkit-text-stroke: 0.5px #d4af37; }
+* {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
+font-family: 'Cairo', sans-serif;
+}
 
-/* لوحة الإحصائيات وحصر العدد */
-.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 30px; }
-.stat-box { background: rgba(255,255,255,0.8); border: 1px solid rgba(214,175,55,0.3); padding: 15px 5px; border-radius: 15px; }
-.stat-box h3 { font-size: 0.85rem; color: #444; }
-.stat-box p { font-size: 1.6rem; font-weight: 900; color: #111; margin-top: 5px; }
-.j-color { color: #d4af37 !important; }
+body {
+background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('bg.jpg');
+background-size: cover;
+background-position: center;
+background-repeat: no-repeat;
+background-attachment: fixed;
+min-height: 100vh;
+padding: 20px;
+display: flex;
+justify-content: center;
+align-items: flex-start;
+}
 
-/* قوائم الطلاب */
-.section-title { text-align: right; font-size: 1.1rem; font-weight: 700; color: #111; margin: 20px 0 10px 0; border-right: 4px solid #d4af37; padding-right: 8px; }
-.student-card { background: rgba(255,255,255,0.7); border-radius: 15px; padding: 15px; margin-bottom: 12px; text-align: right; box-shadow: 0 4px 10px rgba(0,0,0,0.02); display: flex; justify-content: space-between; align-items: center; }
-.student-info h4 { font-size: 1rem; color: #111; margin-bottom: 4px; }
-.j-badge { background: #111; color: #d4af37; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 900; margin-right: 5px; border: 0.5px solid #d4af37;}
-.student-info p { font-size: 0.8rem; color: #555; }
-/* أداة تغيير المستوى للإدارة */
-.level-actions { text-align: left; }
-.level-select { padding: 8px; border-radius: 8px; border: 1px solid #d4af37; background: #fff; font-size: 0.85rem; font-weight: 700; outline: none; cursor: pointer; }
+.admin-container {
+background: rgba(255, 255, 255, 0.2);
+backdrop-filter: blur(15px);
+-webkit-backdrop-filter: blur(15px);
+border-radius: 25px;
+padding: 30px 20px;
+width: 100%;
+max-width: 900px;
+border: 1px solid var(--glass-border);
+box-shadow: var(--glass-shadow);
+margin-top: 10px;
+}
 
-.no-data { font-size: 0.9rem; color: #666; padding: 20px; background: rgba(255,255,255,0.3); border-radius: 15px; }
-.back-home { display: inline-block; margin-top: 25px; color: #111; text-decoration: none; font-weight: 700; font-size: 0.9rem; }
+.admin-header {
+text-align: center;
+margin-bottom: 25px;
+border-bottom: 2px solid var(--main-gold);
+padding-bottom: 15px;
+}
+
+.admin-header h1 {
+font-size: 1.8rem;
+color: #000;
+font-weight: 900;
+}
+
+.admin-header p {
+font-size: 0.95rem;
+color: #222;
+font-weight: 700;
+}
+
+.search-box {
+margin-bottom: 20px;
+display: flex;
+gap: 10px;
+}
+
+.search-box input {
+flex: 1;
+padding: 12px 15px;
+border-radius: 12px;
+border: 1px solid rgba(255, 255, 255, 0.6);
+background: rgba(255, 255, 255, 0.6);
+font-size: 0.95rem;
+font-weight: 700;
+outline: none;
+}
+
+.stats-bar {
+display: flex;
+justify-content: space-between;
+background: rgba(0, 0, 0, 0.3);
+color: #fff;
+padding: 12px 20px;
+border-radius: 12px;
+margin-bottom: 20px;
+font-weight: 800;
+font-size: 0.9rem;
+border: 1px solid var(--main-gold);
+}
+
+.students-grid {
+display: grid;
+grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+gap: 15px;
+}
+
+.student-card {
+background: rgba(255, 255, 255, 0.85);
+backdrop-filter: blur(10px);
+border-radius: 16px;
+padding: 16px;
+border: 1.5px solid var(--main-gold);
+box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+position: relative;
+}
+
+.student-card h3 {
+font-size: 1.1rem;
+color: #000;
+margin-bottom: 8px;
+border-bottom: 1px solid #ddd;
+padding-bottom: 5px;
+}
+
+.info-item {
+font-size: 0.85rem;
+color: #222;
+margin-bottom: 4px;
+font-weight: 700;
+}
+
+.info-item b {
+color: #000;
+}
+
+.badge-vip {
+background: #d4af37;
+color: #000;
+padding: 2px 8px;
+border-radius: 6px;
+font-size: 0.75rem;
+font-weight: 800;
+display: inline-block;
+}
+
+.card-actions {
+margin-top: 12px;
+display: flex;
+gap: 8px;
+}
+
+.btn-edit {
+flex: 1;
+background: #1a1a1a;
+color: #d4af37;
+border: 1px solid #d4af37;
+padding: 8px;
+border-radius: 8px;
+font-weight: 800;
+font-size: 0.8rem;
+cursor: pointer;
+transition: 0.2s;
+}
+
+.btn-edit:hover {
+background: #d4af37;
+color: #000;
+}
+
+.btn-delete {
+background: #a80000;
+color: #fff;
+border: none;
+padding: 8px 12px;
+border-radius: 8px;
+font-weight: 800;
+font-size: 0.8rem;
+cursor: pointer;
+transition: 0.2s;
+}
+
+.btn-delete:hover {
+background: #d00000;
+}
+
+.btn-home {
+display: inline-block;
+margin-top: 25px;
+background: rgba(0,0,0,0.7);
+color: #fff;
+padding: 10px 20px;
+border-radius: 12px;
+text-decoration: none;
+font-weight: 800;
+border: 1px solid #fff;
+}
 </style>
 </head>
 <body>
 
 <div class="admin-container">
-<h1>لوحة إدارة EMP</h1>
-
-<!-- حصر الأعداد -->
-<div class="stats-grid">
-<div class="stat-box"><h3>إجمالي الطلاب</h3><p id="total-count">0</p></div>
-<div class="stat-box"><h3>جيل الإبداع <span class="j-color">(J)</span></h3><p id="j-count" class="j-color">0</p></div>
-<div class="stat-box"><h3>المدارس الأخرى</h3><p id="other-count">0</p></div>
+<div class="admin-header">
+<h1>🔒 لوحة إدارة البرنامج (EMP)</h1>
+<p>مدرسة جيل الإبداع والتميز - إدارة الطلاب والمستويات</p>
 </div>
 
-<!-- عرض وفرز الطلاب -->
-<div class="section-title">طلاب مدارس جيل الإبداع والتميز</div>
-<div id="j-students-list"></div>
-
-<div class="section-title">طلاب المدارس الأخرى</div>
-<div id="other-students-list"></div>
-
-<a href="index.html" class="back-home">⬅ العودة للرئيسية</a>
+<!-- شريط البحث والإحصائيات -->
+<div class="stats-bar">
+<span>إجمالي المسجلين: <b id="totalStudents">0</b></span>
+<span id="loadingStatus">جاري التحميل...</span>
 </div>
+
+<div class="search-box">
+<input type="text" id="searchInput" onkeyup="filterStudents()" placeholder="🔍 ابحث بالاسم أو برقم الحدود...">
+</div>
+
+<!-- شبكة عرض بطاقات الطلاب -->
+<div class="students-grid" id="studentsContainer"></div>
+
+<div style="text-align: center;">
+<a href="index.html" class="btn-home">🔙 العودة للصفحة الرئيسية</a>
+</div>
+</div>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore-compat.js"></script>
 
 <script>
-function loadStudents() {
-const students = JSON.parse(localStorage.getItem('emp_students')) || [];
+const firebaseConfig = {
+apiKey: "AIzaSyBKNYzhD6yJqtBywDSGHE0-RgvJZ4Cw74I",
+authDomain: "english-mastery-program.firebaseapp.com",
+projectId: "english-mastery-program",
+storageBucket: "english-mastery-program.firebasestorage.app",
+messagingSenderId: "351145575770",
+appId: "1:351145575770:web:49c375d96b1563b3385f63",
+measurementId: "G-CFNS5HZXNW"
+};
 
-// الفرز وحصر الأعداد
-const jStudents = students.filter(s => s.school === 'jil-alibdaa');
-const otherStudents = students.filter(s => s.school !== 'jil-alibdaa');
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-document.getElementById('total-count').innerText = students.length;
-document.getElementById('j-count').innerText = jStudents.length;
-document.getElementById('other-count').innerText = otherStudents.length;
+let allStudents = [];
 
-renderList(jStudents, 'j-students-list', true);
-renderList(otherStudents, 'other-students-list', false);
-}
+// التحقق المباشر من الدخول
+window.onload = function() {
+loadStudents();
+};
 
-function renderList(list, elementId, isJ) {
-const container = document.getElementById(elementId);
-container.innerHTML = '';
+// تحميل جميع الطلاب من قاعدة البيانات
+async function loadStudents() {
+const container = document.getElementById('studentsContainer');
+const status = document.getElementById('loadingStatus');
 
-if(list.length === 0) {
-container.innerHTML = '<div class="no-data">لا يوجد طلاب مسجلين حالياً</div>';
+try {
+const snapshot = await db.collection("emp_students").orderBy("createdAt", "desc").get();
+allStudents = [];
+container.innerHTML = "";
+
+if (snapshot.empty) {
+container.innerHTML = "<p style='text-align:center; grid-column:1/-1; font-weight:800;'>لا يوجد طلاب مسجلين حتى الآن.</p>";
+status.innerText = "مكتمل";
+document.getElementById('totalStudents').innerText = "0";
 return;
 }
 
-list.forEach(student => {
+snapshot.forEach(doc => {
+allStudents.push({ id: doc.id, ...doc.data() });
+});
+
+document.getElementById('totalStudents').innerText = allStudents.length;
+status.innerText = "تم التحديث";
+renderStudents(allStudents);
+
+} catch (error) {
+console.error("خطأ جلب البيانات:", error);
+status.innerText = "حدث خطأ أثناء الجلب";
+}
+}
+
+// عرض البطاقات
+function renderStudents(studentsList) {
+const container = document.getElementById('studentsContainer');
+container.innerHTML = "";
+
+studentsList.forEach(student => {
+const isVip = student.packageType && student.packageType.includes("VIP");
+
 const card = document.createElement('div');
 card.className = 'student-card';
 card.innerHTML = `
-<div class="student-info">
-<h4>${student.name} ${isJ ? '<span class="j-badge">J</span>' : ''}</h4>
-<p>رقم الحدود: ${student.borderId} | هاتف: ${student.parentPhone}</p>
-<p>المستوى الحالي المَعروض: <strong>${student.academicLevel}</strong></p>
+<h3>${student.fullName || 'بدون اسم'} ${isVip ? '<span class="badge-vip">VIP</span>' : ''}</h3>
+<div class="info-item"><b>رقم الحدود:</b> ${student.borderNumber || '-'}</div>
+<div class="info-item"><b>العمر:</b> ${student.age || '-'} سنة</div>
+<div class="info-item"><b>الفئة:</b> ${student.category || '-'}</div>
+<div class="info-item"><b>الباقة:</b> ${student.packageType || 'عادي'}</div>
+<div class="info-item"><b>الترحيل:</b> ${student.transportService || 'لا'}</div>
+<div class="info-item"><b>المدرسة:</b> ${student.school || '-'}</div>
+<div class="info-item"><b>السكن:</b> ${student.address || '-'}</div>
+<div class="info-item"><b>رقم التواصل:</b> <a href="tel:${student.parentPhone}">${student.parentPhone || '-'}</a></div>
+<div class="info-item" style="background:rgba(212,175,55,0.2); padding:5px; border-radius:6px; margin-top:5px;">
+<b>المستوى الأكاديمي الحالي:</b> <span style="color:#000; font-weight:900;">${student.englishLevel || 'غير محدد'}</span>
 </div>
-<div class="level-actions">
-<select class="level-select" onchange="updateLevel('${student.borderId}', this.value)">
-<option value="" disabled selected>تعديل المستوى</option>
-<option value="متوسط">متوسط</option>
-<option value="جيد">جيد</option>
-<option value="جيد جداً">جيد جداً</option>
-<option value="ممتاز">ممتاز</option>
-</select>
+
+<div class="card-actions">
+<button class="btn-edit" onclick="updateStudentLevel('${student.id}', '${student.fullName}', '${student.englishLevel}')">✏️ تعديل المستوى</button>
+<button class="btn-delete" onclick="deleteStudent('${student.id}', '${student.fullName}')">🗑️</button>
 </div>
 `;
 container.appendChild(card);
 });
 }
 
-// دالة رفع وتعديل مستوى الطالب من قبل الإدارة
-function updateLevel(borderId, newLevel) {
-let students = JSON.parse(localStorage.getItem('emp_students')) || [];
-const index = students.findIndex(s => s.borderId === borderId);
-if(index !== -1) {
-students[index].academicLevel = newLevel;
-localStorage.setItem('emp_students', JSON.stringify(students));
-loadStudents(); // إعادة تحديث الشاشة فوراً
-alert('تم تحديث مستوى الطالب بنجاح وعرضه لولي الأمر!');
+// دالة تعديل مستوى الطالب مباشرة
+async function updateStudentLevel(docId, studentName, currentLevel) {
+const newLevel = prompt(`تعديل المستوى الأكاديمي للطالب/ة (${studentName}):\nالمستوى الحالي: [ ${currentLevel} ]\n\nأدخل المستوى الجديد:`, currentLevel);
+
+if (newLevel !== null && newLevel.trim() !== "") {
+try {
+await db.collection("emp_students").doc(docId).update({
+englishLevel: newLevel.trim()
+});
+alert(`تم تحديث مستوى الطالب (${studentName}) إلى: ${newLevel.trim()}`);
+loadStudents(); // إعادة التحميل
+} catch (error) {
+console.error("خطأ أثناء التحديث:", error);
+alert("حدث خطأ أثناء تحديث البيانات.");
+}
 }
 }
 
-// تشغيل التحميل عند فتح الصفحة
-window.onload = loadStudents;
+// دالة حذف طالب
+async function deleteStudent(docId, studentName) {
+if (confirm(`هل أنت تأكد من رغبتك في حذف بيانات الطالب/ة (${studentName}) نهائياً؟`)) {
+try {
+await db.collection("emp_students").doc(docId).delete();
+alert("تم حذف الملف بنجاح.");
+loadStudents();
+} catch (error) {
+console.error("خطأ في الحذف:", error);
+alert("حدث خطأ أثناء الحذف.");
+}
+}
+}
+
+// تصفية وحث مباشر
+function filterStudents() {
+const query = document.getElementById('searchInput').value.toLowerCase().trim();
+const filtered = allStudents.filter(s =>
+(s.fullName && s.fullName.toLowerCase().includes(query)) ||
+(s.borderNumber && s.borderNumber.includes(query))
+);
+renderStudents(filtered);
+}
 </script>
 </body>
 </html>
